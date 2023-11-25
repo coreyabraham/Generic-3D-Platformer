@@ -1,14 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public enum StemType
-{
-    None = 0,
-    SFX,
-    Music
-}
-
-[CreateAssetMenu(menuName = "Audio/Stem", fileName = "Stem")]
+[CreateAssetMenu(menuName = "Game/Audio Stem", fileName = "Audio Stem")]
 public class Stem : ScriptableObject
 {
     internal AudioSource source;
