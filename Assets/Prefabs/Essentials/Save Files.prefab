@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: SaveFile2
+  <FileName>k__BackingField: File2
   <FriendlyName>k__BackingField: Save File 2
   <LevelName>k__BackingField: Level 1
   <GoldCount>k__BackingField: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: SaveFile1
+  <FileName>k__BackingField: File1
   <FriendlyName>k__BackingField: Save File 1
   <LevelName>k__BackingField: Level 1
   <GoldCount>k__BackingField: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: SaveFile3
+  <FileName>k__BackingField: File3
   <FriendlyName>k__BackingField: Save File 3
   <LevelName>k__BackingField: Level 1
   <GoldCount>k__BackingField: 0

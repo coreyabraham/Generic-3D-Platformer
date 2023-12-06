@@ -6,7 +6,6 @@ public class TrackCameraToPlayer : MonoBehaviour
 
     public void Start()
     {
-        GameManager.Instance.Camera.LookAt = Tracker.transform;
-        GameManager.Instance.Camera.Follow = Tracker.transform;
+        
     }
 }

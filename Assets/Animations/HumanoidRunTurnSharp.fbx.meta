@@ -1495,20 +1495,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.45243597
-        functionName: Step
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.798144
-        functionName: Step
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
@@ -1539,20 +1525,6 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: Step
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: 0.32250598
-        functionName: Step
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.8120651
         functionName: Step
         data: 
         objectReferenceParameter: {instanceID: 0}
