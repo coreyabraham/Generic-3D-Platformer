@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26afceaa6acb46b49ac65a1f1dd147bf, type: 3}
-  m_Name: Footstep2
+  m_Name: Generic1
   m_EditorClassIdentifier: 
-  <Clip>k__BackingField: {fileID: 8300000, guid: 221c628a85b231443a85f294765606e5, type: 3}
-  <FriendlyName>k__BackingField: Footstep2
+  <Clip>k__BackingField: {fileID: 8300000, guid: 25703d7e4e6e00f41aa806c82f240b01, type: 3}
+  <FriendlyName>k__BackingField: 
   <ClipType>k__BackingField: 1
   <StartPosition>k__BackingField: 0
   <IsLoopable>k__BackingField: 0
   <Pan>k__BackingField: 0
   <Pitch>k__BackingField: 1
-  <GlobalVolume>k__BackingField: 0.2
+  <GlobalVolume>k__BackingField: 0.15

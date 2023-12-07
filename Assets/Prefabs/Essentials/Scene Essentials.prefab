@@ -241,6 +241,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6887667860824991656}
     m_Modifications:
+    - target: {fileID: 312477437628823026, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 312477437628823026, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 504846630854875468, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
       propertyPath: field of view
       value: 80
@@ -304,22 +312,22 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8585331918402863943, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
---- !u!114 &2982684816333649125 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5529368544372112126, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
-  m_PrefabInstance: {fileID: 7338865648832876059}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4979678168360431748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2360939011115335327, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
   m_PrefabInstance: {fileID: 7338865648832876059}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6081300393117159661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3584299125718458102, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
+  m_PrefabInstance: {fileID: 7338865648832876059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319d2fe34a804e245819465c9505ea59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8273786603189792220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,7 +382,7 @@ PrefabInstance:
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <Camera>k__BackingField
       value: 
-      objectReference: {fileID: 2982684816333649125}
+      objectReference: {fileID: 6081300393117159661}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <CurrentSaveFile>k__BackingField
       value: 

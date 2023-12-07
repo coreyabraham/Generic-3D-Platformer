@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
 
-    [field: SerializeField] public Camera Camera { get; set; }
+    [field: SerializeField] public Cinemachine.CinemachineFreeLook Camera { get; set; }
     [field: SerializeField] public SaveFileData CurrentSaveFile { get; set; }
     public PlayerController Player { get; set; }
 

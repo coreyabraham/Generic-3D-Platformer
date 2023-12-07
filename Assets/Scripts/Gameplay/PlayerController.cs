@@ -1,52 +1,153 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class AudibleMaterial
+{
+    [field: SerializeField] public string SoundName { get; set; }
+    [field: SerializeField] public PhysicMaterial Material { get; set; }
+}
 
 public class PlayerController : MonoBehaviour
 {
-    [field: SerializeField] public Transform CameraTarget { get; set; }
-
+    [field: Header("General")]
     [field: SerializeField] public float CharacterSpeed { get; set; }
     [field: SerializeField] public float JumpHeight { get; set; }
-    [field: SerializeField] public bool IsJumping { get; set; }
-    [field: SerializeField] public bool IsMoving { get; set; }
-    [field: SerializeField] public bool IsDead { get; set; }
-    [field: SerializeField] public bool CursorLocked { get; set; }
+
+    [field: Header("Specific")]
+    [field: SerializeField] public PlayerStates PlayerState { get; set; }
+    [field: SerializeField] public AudibleMaterial[] Materials;
+
+    [field: Header("Body Parts")]
+    [field: SerializeField] public Transform Root;
+    [field: SerializeField] public Transform Head;
+    [field: SerializeField] public Transform Chest;
+    [field: SerializeField] public Transform LeftHand;
+    [field: SerializeField] public Transform RightHand;
+    [field: SerializeField] public Transform LeftFoot;
+    [field: SerializeField] public Transform RightFoot;
+
+    private Dictionary<BodyPart, Transform> parts;
 
     private Animator _animator;
     private CharacterController _controller;
-    [field: SerializeField] public Vector2 _moveDirection { get; set; } // will become a private once tested properly!
+    [field: SerializeField] public Vector3 _moveDirection { get; set; } // will become a private once tested properly!
 
-    public void Step(int index) => AudioManager.Instance.Play("Footstep" + index.ToString());
-    public void Move(Vector2 direction) => _moveDirection = direction;
+    public Transform GetBodyPart(BodyPart part)
+    {
+        if (parts == null)
+        {
+            parts = new Dictionary<BodyPart, Transform>
+            {
+                [BodyPart.Root] = transform,
+                [BodyPart.Head] = Head,
+                [BodyPart.Chest] = Chest,
+                [BodyPart.LeftHand] = LeftHand,
+                [BodyPart.RightHand] = RightHand,
+                [BodyPart.LeftFoot] = LeftFoot,
+                [BodyPart.RightFoot] = RightFoot
+            };
+
+            if (parts.ContainsKey(part))
+                return parts[part];
+        }
+
+        return transform;
+    }
+
+    public void Step(int footIndex)
+    {
+        // unused for the moment, will be used for VFX Management!
+        //Transform foot = footIndex == 1 ? LeftFoot : RightFoot;
+
+        PhysicMaterial obj = null;
+        RaycastHit hit;
+
+        if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit))
+            obj = hit.collider.sharedMaterial;
+
+        string footstep = string.Empty;
+        if (obj != null)
+        {
+            foreach (AudibleMaterial mat in Materials)
+            {
+                if (mat.Material == obj)
+                {
+                    footstep = mat.SoundName;
+                    break;
+                }
+            }
+        }
+
+        AudioManager.Instance.Play(footstep + footIndex.ToString());
+    }
+
+    public void Move(Vector3 direction) => _moveDirection = direction;
 
     public void TriggerDeath()
     {
-        if (IsDead)
+        if (PlayerState == PlayerStates.Dying)
             return;
 
-        IsDead = true;
+        PlayerState = PlayerStates.Dying;
+        Debug.LogWarning("DO DEATH HERE!", this);
+
+        AudioManager.Instance.Play("Lost Gold");
+
         // DO CODE HERE!
     }
 
     private void OnEnable()
     {
+        foreach (AudibleMaterial mat in Materials)
+        {
+            if (mat.SoundName == string.Empty)
+                mat.SoundName = mat.Material.name;
+        }
+
         GameManager.Instance.Player = this;
         InputManager.Instance.Player_Move.AddListener(Move);
+
+        _animator = GetComponent<Animator>();
+        _controller = GetComponent<CharacterController>();
+        
+        name = "Player";
     }
 
+    private bool ran; // test!
     private void Update()
     {
-        if (CursorLocked && Cursor.lockState != CursorLockMode.Locked)
-            Cursor.lockState = CursorLockMode.Locked;
-        else
-            Cursor.lockState = CursorLockMode.None;
+        if (!ran && Input.GetKeyDown(KeyCode.Backspace))
+        {
+            Debug.Log("CLICKED!", this);
+            ran = true;
+            GoldManager.Instance.ClearGold(1);
+        }
 
+        // (ADD THIS IN AS A REPLACEMENT ONCE "InputManager" WORKS PROPERLY!)
+        //_controller.Move(_moveDirection);
+
+        // rework this controller to be more free-form and less "tanky" !!!
         float fwd = Input.GetAxis("Vertical");
 
-        _animator.SetFloat("Forward", Mathf.Abs(fwd));
-        _animator.SetFloat("Sense", Mathf.Sign(fwd));
+        _animator.SetFloat("Forward", Mathf.Abs(fwd * CharacterSpeed));
+        _animator.SetFloat("Sense", Mathf.Sign(fwd * CharacterSpeed));
 
-        // _animator.SetFloat("Turn", Input.GetAxis("Horizontal"));
+        _animator.SetFloat("Turn", Input.GetAxis("Horizontal"));
+
+        if (PlayerState == PlayerStates.Jumping || PlayerState == PlayerStates.Dying)
+        {
+            if (PlayerState == PlayerStates.Jumping)
+            {
+                Debug.Log("ACTIVATE PLAYER JUMP HERE!");
+            }
+            
+            return;
+        }
+
+        if (fwd != 0)
+            PlayerState = PlayerStates.Running;
+        else
+            PlayerState = PlayerStates.Idle;
     }
-    
-    private void Start() { _animator = GetComponent<Animator>(); _controller = GetComponent<CharacterController>(); name = "Player"; }
 }

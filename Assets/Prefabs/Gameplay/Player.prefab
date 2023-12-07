@@ -88,9 +88,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3623533780613559906}
-  - component: {fileID: 3723887770603437941}
   - component: {fileID: 3032743062246968344}
   - component: {fileID: 8115420653452255595}
+  - component: {fileID: 2912288740311455464}
+  - component: {fileID: 3723887770603437941}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -116,26 +117,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3723887770603437941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8708066111148303311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a95f72ef75ffb49459a250dd02892188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CameraTarget>k__BackingField: {fileID: 1883424918345517383}
-  <CharacterSpeed>k__BackingField: 1
-  <JumpHeight>k__BackingField: 1
-  <IsJumping>k__BackingField: 0
-  <IsMoving>k__BackingField: 0
-  <IsDead>k__BackingField: 0
-  <CursorLocked>k__BackingField: 0
-  <_moveDirection>k__BackingField: {x: 0, y: 0}
 --- !u!95 &3032743062246968344
 Animator:
   serializedVersion: 4
@@ -174,6 +155,50 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &2912288740311455464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708066111148303311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe78f1fd9d8c74448faa5fb28fa130c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Tracker>k__BackingField: {fileID: 2145664880807732492}
+  <LockMode>k__BackingField: 1
+  <ShowCursor>k__BackingField: 0
+--- !u!114 &3723887770603437941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708066111148303311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f72ef75ffb49459a250dd02892188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CharacterSpeed>k__BackingField: 1
+  <JumpHeight>k__BackingField: 1
+  <PlayerState>k__BackingField: 0
+  <DefaultMaterialName>k__BackingField: Generic
+  Materials:
+  - <SoundName>k__BackingField: Generic
+    <Material>k__BackingField: {fileID: 13400000, guid: 04a058bb0d9546b4ca90831a04836ec3, type: 2}
+  - <SoundName>k__BackingField: 
+    <Material>k__BackingField: {fileID: 13400000, guid: a29592a180087244ba6eac3a60c00f6c, type: 2}
+  Root: {fileID: 0}
+  Head: {fileID: 0}
+  Chest: {fileID: 0}
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  LeftFoot: {fileID: 0}
+  RightFoot: {fileID: 0}
+  <_moveDirection>k__BackingField: {x: 0, y: 0}
 --- !u!1001 &3712710580223894939
 PrefabInstance:
   m_ObjectHideFlags: 0

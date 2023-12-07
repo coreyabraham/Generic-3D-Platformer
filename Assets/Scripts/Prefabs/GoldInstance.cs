@@ -17,12 +17,12 @@ public class GoldInstance : MonoBehaviour
         collider.enabled = !collider.enabled;
     }
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        if (!IsEnabled)
+        if (!IsEnabled || other.GetComponent<PlayerController>() == null)
             return;
 
         ToggleUsablity();
-        GoldManager.Instance.ModifyGold(GoldType, IncreaseValue);
+        GoldManager.Instance.ModifyGold(this, IncreaseValue);
     }
 }

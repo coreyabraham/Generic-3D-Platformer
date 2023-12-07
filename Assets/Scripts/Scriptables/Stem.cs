@@ -26,7 +26,8 @@ public class Stem : ScriptableObject
 
     internal void OnEnable()
     {
-
+        if (FriendlyName == string.Empty)
+            FriendlyName = name;
     }
 
     internal void Play(bool overrideVolume = true)

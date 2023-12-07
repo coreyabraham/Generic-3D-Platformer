@@ -10,10 +10,10 @@ public class AudioManager : MonoBehaviour
     public Dictionary<string, Stem> Stems;
 
     [field: SerializeField] public GameObject AudioObject { get; set; }
-    [field: SerializeField] public string[] AudioPaths { get; set; } // Relative to Resource Folder
     [field: SerializeField] public AudioMixer AudioMixer { get; set; }
     [field: SerializeField] public AudioMixerGroup MusicMixer { get; set; } = null;
     [field: SerializeField] public AudioMixerGroup SFXMixer { get; set; } = null;
+    [field: SerializeField] public string[] AudioPaths { get; set; } // Relative to Resource Folder
 
     private void Awake() => Instance ??= this;
 
