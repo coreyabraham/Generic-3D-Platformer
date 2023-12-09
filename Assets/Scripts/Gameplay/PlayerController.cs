@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [System.Serializable]
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
     private CharacterController _controller;
+    private Rigidbody _rigid;
     [field: SerializeField] public Vector3 _moveDirection { get; set; } // will become a private once tested properly!
 
     public Transform GetBodyPart(BodyPart part)
@@ -82,7 +84,16 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.Play(footstep + footIndex.ToString());
     }
 
-    public void Move(Vector3 direction) => _moveDirection = direction;
+    public void Move(Vector3 direction) 
+    {
+        Debug.Log("MOVING!");
+        _moveDirection = direction;
+    }
+
+    public void Jump(bool value)
+    {
+        Debug.Log(value);
+    }
 
     public void TriggerDeath()
     {
@@ -97,21 +108,36 @@ public class PlayerController : MonoBehaviour
         // DO CODE HERE!
     }
 
+    private async Task WaitForManagers()
+    {
+        while (InputManager.Instance == null || GameManager.Instance == null)
+            await Task.Yield();
+    }
+
     private void OnEnable()
     {
-        foreach (AudibleMaterial mat in Materials)
-        {
-            if (mat.SoundName == string.Empty)
-                mat.SoundName = mat.Material.name;
-        }
+        GameManager.WaitForTask(WaitForManagers(), () => {
+            foreach (AudibleMaterial mat in Materials)
+            {
+                if (mat.SoundName == string.Empty)
+                    mat.SoundName = mat.Material.name;
+            }
 
-        GameManager.Instance.Player = this;
-        InputManager.Instance.Player_Move.AddListener(Move);
+            InputManager.Instance.Player_Move.AddListener(Move);
+            InputManager.Instance.Player_Jump.AddListener(Jump);
 
-        _animator = GetComponent<Animator>();
-        _controller = GetComponent<CharacterController>();
-        
-        name = "Player";
+            _animator = GetComponent<Animator>();
+            _controller = GetComponent<CharacterController>();
+            _rigid = GetComponentInChildren<Rigidbody>();
+
+            name = "Player"; 
+        });
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.Player_Move.RemoveListener(Move);
+        InputManager.Instance.Player_Jump.RemoveListener(Jump);
     }
 
     private bool ran; // test!

@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208472480190705638}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3995372317255304932
 MonoBehaviour:
@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b23cec87be2ede4ea6e1675bd05fb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TextLabel>k__BackingField: {fileID: 0}
+  <Golds>k__BackingField: []
 --- !u!1 &3269409358162385527
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,11 +107,56 @@ Transform:
   m_Children:
   - {fileID: 4888267464391144900}
   - {fileID: 5128661236074965301}
+  - {fileID: 317465028134207254}
   - {fileID: 1685437266941739771}
   - {fileID: 8691015167110607056}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4564731125889767129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 317465028134207254}
+  - component: {fileID: 1209254165603336567}
+  m_Layer: 0
+  m_Name: Scene Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &317465028134207254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564731125889767129}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 208472480190705638}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1209254165603336567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564731125889767129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5baffbb80edcb6245a11479db5cd58e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4831932869429569823
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Camera>k__BackingField: {fileID: 0}
-  <SaveData>k__BackingField: {fileID: 11400000, guid: 31d97044f97f4a645b32e0cd524a786b, type: 2}
+  <CurrentSaveFile>k__BackingField: {fileID: 0}
+  <Player>k__BackingField: {fileID: 0}
 --- !u!1 &6090347456953995482
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +235,7 @@ Transform:
   m_Children:
   - {fileID: 2458136318369279901}
   m_Father: {fileID: 208472480190705638}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5596486281610058608
 MonoBehaviour:
@@ -202,12 +250,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AudioObject>k__BackingField: {fileID: 3269409358162385527}
-  <AudioPaths>k__BackingField:
-  - Sounds
-  - Music
   <AudioMixer>k__BackingField: {fileID: 24100000, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
   <MusicMixer>k__BackingField: {fileID: -4953964083420157551, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
   <SFXMixer>k__BackingField: {fileID: -4444488168839630434, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
+  <AudioPaths>k__BackingField:
+  - Sounds
+  - Music
 --- !u!1 &6103064397045429244
 GameObject:
   m_ObjectHideFlags: 0

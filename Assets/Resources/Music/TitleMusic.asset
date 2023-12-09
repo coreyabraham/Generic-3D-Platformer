@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26afceaa6acb46b49ac65a1f1dd147bf, type: 3}
   m_Name: TitleMusic
   m_EditorClassIdentifier: 
-  <Clip>k__BackingField: {fileID: 0}
+  <Clip>k__BackingField: {fileID: 8300000, guid: 9e249c720244ad04bac325326447df79, type: 3}
   <FriendlyName>k__BackingField: Title Screen Music
   <ClipType>k__BackingField: 2
   <StartPosition>k__BackingField: 0
   <IsLoopable>k__BackingField: 1
   <Pan>k__BackingField: 0
   <Pitch>k__BackingField: 1
-  <GlobalVolume>k__BackingField: 0.5
+  <GlobalVolume>k__BackingField: 0.25

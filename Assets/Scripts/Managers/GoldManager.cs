@@ -82,6 +82,15 @@ public class GoldManager : MonoBehaviour
         }
     }
 
-    private void Start() => TextLabel.text = "Gold: " + GameManager.Instance.CurrentSaveFile.GoldCount.ToString();
+    private void Start()
+    {
+        if (TextLabel == null)
+            return;
+
+        if (!TextLabel.enabled)
+            TextLabel.enabled = true;
+
+        TextLabel.text = "Gold: " + GameManager.Instance.CurrentSaveFile.GoldCount.ToString();
+    }
     private void Awake() => Instance ??= this;
 }

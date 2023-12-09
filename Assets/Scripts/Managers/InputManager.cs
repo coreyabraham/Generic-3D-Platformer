@@ -14,31 +14,50 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public UnityEvent<bool> Player_Interact;
     [HideInInspector] public UnityEvent<bool> Player_Pause;
 
-    public void EnableControls() => OnEnable();
-    public void DisableControls() => OnDisable();
-
-    public void PlayerMove(InputAction.CallbackContext ctx) => Player_Move?.Invoke(ctx.ReadValue<Vector3>());
-    public void PlayerJump(InputAction.CallbackContext ctx) => Player_Jump?.Invoke(ctx.ReadValue<bool>());
-    public void PlayerCrouch(InputAction.CallbackContext ctx) => Player_Crouch?.Invoke(ctx.ReadValue<bool>());
-    public void PlayerInteract(InputAction.CallbackContext ctx) => Player_Interact?.Invoke(ctx.ReadValue<bool>());
-    public void PlayerPause(InputAction.CallbackContext ctx) => Player_Pause?.Invoke(ctx.ReadValue<bool>());
-
-    private void OnEnable()
+    public void OnEnable()
     {
+        if (Instance)
+            return;
+
+        EnableControls();
+    }
+
+    public void OnDisable()
+    {
+        if (Instance)
+            return;
+            
+        DisableControls();
+    }
+
+    private void EnableControls()
+    {
+        Inputs.Player.Move.started += PlayerMove;
         Inputs.Player.Move.performed += PlayerMove;
+        Inputs.Player.Move.canceled += PlayerMove;
+
         Inputs.Player.Jump.performed += PlayerJump;
         Inputs.Player.Crouch.performed += PlayerCrouch;
         Inputs.Player.Interact.performed += PlayerInteract;
         Inputs.Player.Pause.performed += PlayerPause;
+
+        Inputs.Player.Enable();
+
+        Debug.Log("Enabled");
     }
 
-    private void OnDisable()
+    private void DisableControls()
     {
+        Inputs.Player.Move.started -= PlayerMove;
         Inputs.Player.Move.performed -= PlayerMove;
+        Inputs.Player.Move.canceled -= PlayerMove; 
+
         Inputs.Player.Jump.performed -= PlayerJump;
         Inputs.Player.Crouch.performed -= PlayerCrouch;
         Inputs.Player.Interact.performed -= PlayerInteract;
         Inputs.Player.Pause.performed -= PlayerPause;
+
+        Inputs.Player.Disable();
     }
 
     private void Awake()
@@ -52,4 +71,13 @@ public class InputManager : MonoBehaviour
         Player_Interact ??= new();
         Player_Pause ??= new();
     }
+
+    public void PlayerMove(InputAction.CallbackContext ctx) {
+        Debug.Log("Hello?");
+        Player_Move?.Invoke(ctx.ReadValue<Vector3>());
+    }
+    public void PlayerJump(InputAction.CallbackContext ctx) => Player_Jump?.Invoke(ctx.ReadValueAsButton());
+    public void PlayerCrouch(InputAction.CallbackContext ctx) => Player_Crouch?.Invoke(ctx.ReadValueAsButton());
+    public void PlayerInteract(InputAction.CallbackContext ctx) => Player_Interact?.Invoke(ctx.ReadValueAsButton());
+    public void PlayerPause(InputAction.CallbackContext ctx) => Player_Pause?.Invoke(ctx.ReadValueAsButton());
 }
