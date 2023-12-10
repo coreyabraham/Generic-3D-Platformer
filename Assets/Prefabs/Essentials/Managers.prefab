@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baffbb80edcb6245a11479db5cd58e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LoadOnStartup>k__BackingField: 
 --- !u!1 &4831932869429569823
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AudioObject>k__BackingField: {fileID: 3269409358162385527}
   <AudioMixer>k__BackingField: {fileID: 24100000, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
+  <MasterMixer>k__BackingField: {fileID: 24300002, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
   <MusicMixer>k__BackingField: {fileID: -4953964083420157551, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
   <SFXMixer>k__BackingField: {fileID: -4444488168839630434, guid: e6dd606f9b18cf4418e222fe5115e8fa, type: 2}
   <AudioPaths>k__BackingField:

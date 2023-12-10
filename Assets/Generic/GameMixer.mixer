@@ -71,9 +71,9 @@ AudioMixerController:
   - guid: 135cb8757401bdd4bb025b94edba73c7
     name: ExposedMasterVolume
   - guid: 8cfe4366a4108be46ae258ebbaecf0af
-    name: ExposedSoundVolume
-  - guid: bdd6bddc748fe4343be82e027a8d280a
     name: ExposedMusicVolume
+  - guid: bdd6bddc748fe4343be82e027a8d280a
+    name: ExposedSoundVolume
   m_AudioMixerGroupViews:
   - guids:
     - 127581139ae3d6047b1f0afeeaa61cf0

@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
 
     [field: SerializeField] public GameObject AudioObject { get; set; }
     [field: SerializeField] public AudioMixer AudioMixer { get; set; }
+    [field: SerializeField] public AudioMixerGroup MasterMixer { get; set; } = null;
     [field: SerializeField] public AudioMixerGroup MusicMixer { get; set; } = null;
     [field: SerializeField] public AudioMixerGroup SFXMixer { get; set; } = null;
     [field: SerializeField] public string[] AudioPaths { get; set; } // Relative to Resource Folder

@@ -8,16 +8,17 @@ public class CommonSlider : MonoBehaviour
     [field: SerializeField] public bool AddPercentage { get; set; }
     [field: SerializeField] public int RoundingPoint { get; set; }
 
-    private Slider slider;
-    private TMP_InputField input;
+    [field: Header("Assets")]
+    [field: SerializeField] public Slider Slider { get; set; }
+    [field: SerializeField] public TMP_InputField Input { get; set; }
 
     private void SetDisplay(float value)
     {
         double result = System.Math.Round(value, RoundingPoint);
         string display = AddPercentage ? result.ToString() + "%" : result.ToString();
 
-        slider.value = value;
-        input.text = display;
+        Slider.value = value;
+        Input.text = display;
     }
 
     private void SliderChanged(float value) => SetDisplay(value);
@@ -36,12 +37,12 @@ public class CommonSlider : MonoBehaviour
 
     private void Start()
     {
-        slider = GetComponentInChildren<Slider>();
-        input = GetComponentInChildren<TMP_InputField>();
+        Slider = GetComponentInChildren<Slider>();
+        Input = GetComponentInChildren<TMP_InputField>();
 
-        SetDisplay(slider.value);
+        SetDisplay(Slider.value);
 
-        slider.onValueChanged.AddListener(SliderChanged);
-        input.onEndEdit.AddListener(InputChanged);
+        Slider.onValueChanged.AddListener(SliderChanged);
+        Input.onEndEdit.AddListener(InputChanged);
     }
 }

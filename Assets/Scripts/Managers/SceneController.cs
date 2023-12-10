@@ -7,8 +7,6 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController Instance { get; internal set; }
 
-    [field: SerializeField] public string LoadOnStartup { get; set; }
-
     private Action carriedAction;
 
     public void LoadScene(string targetScene, Action action = null)
@@ -26,11 +24,5 @@ public class SceneController : MonoBehaviour
         carriedAction = null;
     }
 
-    private void Awake()
-    {
-        Instance ??= this;
-
-        if (LoadOnStartup != string.Empty)
-            SceneManager.LoadScene(LoadOnStartup);
-    }
+    private void Awake() => Instance ??= this;
 }
