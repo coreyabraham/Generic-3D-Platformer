@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using Palmmedia.ReportGenerator.Core;
+
 using TMPro;
 
 using UnityEngine;
@@ -9,10 +9,12 @@ using UnityEngine.UI;
 
 public class SettingsUI : MonoBehaviour
 {
-    public class Target
+    [Serializable]
+    public class EventArgs
     {
-        public Button Button;
-        public GameObject Frame;
+        [field: SerializeField] public string Title { get; set; }
+        [field: SerializeField] public string Body { get; set; }
+        [field: SerializeField] public Action<bool> Action { get; set; }
     }
 
     [field: Header("Audio and Video Navigation")]
@@ -29,7 +31,6 @@ public class SettingsUI : MonoBehaviour
 
     [field: Header("Setup")]
     [field: SerializeField] public TMP_Text Title { get; set; }
-    [field: SerializeField] public List<Target> targets = new();
     [field: SerializeField] public SettingsData Settings { get; set; }
 
     [field: Header("Values > Audio")]
@@ -45,10 +46,11 @@ public class SettingsUI : MonoBehaviour
     [field: SerializeField] public Toggle FullscreenToggle { get; set; }
     [field: SerializeField] public Toggle DisplayFPSToggle { get; set; }
 
-    [field: Header("Audio Mixing")]
+    [field: Header("Arrays")]
     [field: SerializeField] public string[] MixerValues = new string[3];
+    [field: SerializeField] public EventArgs[] EventArguments = new EventArgs[2];
 
-    private BaseSettings CurrentSettings = new();
+    [HideInInspector] public BaseSettings CurrentSettings = new();
 
     private void ChangeSubFrame(bool isAudio)
     {
@@ -61,6 +63,67 @@ public class SettingsUI : MonoBehaviour
         Title.text = "< Settings - " + target1.name + " >";
     }
 
+    private void ApplyRequested(EventArgs args)
+    {
+        void ActionRequest(bool result)
+        {
+            args.Action = null;
+
+            if (!result)
+                return;
+            
+            ApplySettings();
+        }
+
+        args.Action = ActionRequest;
+        PromptUI.Instance.StartPrompt(args.Title, args.Body, args.Action);
+    }
+
+    private void DenyRequested(EventArgs args)
+    {
+        void ActionRequest(bool result)
+        {
+            args.Action = null;
+
+            if (!result)
+                return;
+            
+            RevertSettings();
+        }
+
+        args.Action = ActionRequest;
+        PromptUI.Instance.StartPrompt(args.Title, args.Body, args.Action);
+    }
+
+    private void ApplySettings()
+    {
+        #if UNITY_EDITOR
+            Debug.LogWarning("Playing in Unity Editor, some settings may not be visible!", this);
+        #endif
+
+        Resolution targetResolution = Settings.Resolutions[CurrentSettings.DisplayResolution];
+        Screen.SetResolution(targetResolution.width, targetResolution.height, CurrentSettings.Fullscreen);
+
+        QualitySettings.SetQualityLevel(CurrentSettings.GameQuality);
+        Application.targetFrameRate = CurrentSettings.FPS;
+
+        Settings.ApplySettings(CurrentSettings);
+    }
+
+    private void RevertSettings()
+    {
+        CurrentSettings = Settings.DefaultSettings;
+
+        ResolutionDropdown.Dropdown.value = CurrentSettings.DisplayResolution;
+        QualityDropdown.Dropdown.value = CurrentSettings.GameQuality;
+        FullscreenToggle.isOn = CurrentSettings.Fullscreen;
+        DisplayFPSToggle.isOn = CurrentSettings.DisplayFPS;
+        FPSSlider.Slider.value = CurrentSettings.FPS;
+        CamFOVSlider.Slider.value = CurrentSettings.CamFOV;
+
+        ApplySettings();
+    }
+
     private float AudioSliderCalculations(float value) => Mathf.Log10(value) * 20;
 
     private void AudioSliderChanged(int ValuePointer, float value) => AudioManager.Instance.AudioMixer.SetFloat(MixerValues[ValuePointer], AudioSliderCalculations(value));
@@ -70,6 +133,7 @@ public class SettingsUI : MonoBehaviour
     private void MusicVolumeChanged(float value) { CurrentSettings.MusicVolume = value; AudioSliderChanged(2, value); }
 
     private void FPSChanged(float value) => CurrentSettings.FPS = (int)Mathf.Round(value);
+    private void CamFOVChanged(float value) => CurrentSettings.CamFOV = (int)Mathf.Round(value);
     private void FullscreenChanged(bool value) => CurrentSettings.Fullscreen = value;
     private void ResolutionChanged(int value) => CurrentSettings.DisplayResolution = value;
     private void QualityChanged(int value) { CurrentSettings.GameQuality = value; QualitySettings.SetQualityLevel(value); }
@@ -81,11 +145,13 @@ public class SettingsUI : MonoBehaviour
         SoundVolumeSlider.Slider.value = Settings.BaseSettings.SoundVolume;
         MusicVolumeSlider.Slider.value = Settings.BaseSettings.MusicVolume;
         FPSSlider.Slider.value = Settings.BaseSettings.FPS;
+        CamFOVSlider.Slider.value = Settings.BaseSettings.CamFOV;
 
         MasterVolumeSlider.Input.text = Settings.BaseSettings.MasterVolume.ToString();
         SoundVolumeSlider.Input.text = Settings.BaseSettings.SoundVolume.ToString();
         MusicVolumeSlider.Input.text = Settings.BaseSettings.MusicVolume.ToString();
         FPSSlider.Input.text = Settings.BaseSettings.FPS.ToString();
+        CamFOVSlider.Input.text = Settings.BaseSettings.CamFOV.ToString();
 
         QualityDropdown.Dropdown.value = Settings.BaseSettings.GameQuality;
         QualitySettings.SetQualityLevel(Settings.BaseSettings.GameQuality);
@@ -108,14 +174,15 @@ public class SettingsUI : MonoBehaviour
         SoundVolumeSlider.Slider.onValueChanged.AddListener(SoundVolumeChanged);
         MusicVolumeSlider.Slider.onValueChanged.AddListener(MusicVolumeChanged);
         FPSSlider.Slider.onValueChanged.AddListener(FPSChanged);
+        CamFOVSlider.Slider.onValueChanged.AddListener(CamFOVChanged);
 
         FullscreenToggle.onValueChanged.AddListener(FullscreenChanged);
         ResolutionDropdown.Dropdown.onValueChanged.AddListener(ResolutionChanged);
         QualityDropdown.Dropdown.onValueChanged.AddListener(QualityChanged);
         DisplayFPSToggle.onValueChanged.AddListener(DisplayFPSChanged);
 
-        // ApplyBtn.onClick.AddListener(() => { OnPromptFrame(ApplicableEvents[0].PromptTitle, ApplicableEvents[0].PromptBody, ApplicableEvents[0].EventName); });
-        // RevertBtn.onClick.AddListener(() => { OnPromptFrame(ApplicableEvents[1].PromptTitle, ApplicableEvents[1].PromptBody, ApplicableEvents[1].EventName); });
+        ApplyBtn.onClick.AddListener(() => { ApplyRequested(EventArguments[0]); });
+        RevertBtn.onClick.AddListener(() => { DenyRequested(EventArguments[1]); });
 
         ExitBtn.onClick.AddListener(delegate { gameObject.SetActive(false); });
         Settings.SettingsChanged?.Invoke(Settings.BaseSettings);
@@ -158,6 +225,12 @@ public class SettingsUI : MonoBehaviour
             (int)FPSSlider.Slider.minValue,
             (int)FPSSlider.Slider.maxValue
         );
+
+        Settings.BaseSettings.CamFOV = Mathf.Clamp(
+            Settings.BaseSettings.CamFOV,
+            (int)CamFOVSlider.Slider.minValue,
+            (int)CamFOVSlider.Slider.maxValue
+        );
     }
 
     private void SetupResolutions()
@@ -176,7 +249,7 @@ public class SettingsUI : MonoBehaviour
             ResolutionDropdown.Dropdown.ClearOptions();
 
         ResolutionDropdown.Dropdown.AddOptions(options);
-        ResolutionDropdown.Dropdown.ClearOptions();
+        ResolutionDropdown.Dropdown.RefreshShownValue();
 
         ResolutionDropdown.Dropdown.value = Settings.BaseSettings.DisplayResolution;
     }

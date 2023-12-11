@@ -29,9 +29,6 @@ public class CommonSlider : MonoBehaviour
         if (!success)
             return;
 
-        Debug.Log(value);
-        Debug.Log(result);
-
         SetDisplay(result);
     }
 

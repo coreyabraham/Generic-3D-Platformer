@@ -67,7 +67,7 @@ public class SettingsData : MonoBehaviour
 
         if (!File.Exists(FilePath))
         {
-            Debug.Log(FileName + " has been created in Directory: " + Application.persistentDataPath + "\\");
+            Debug.Log(FileName + " has been created in Directory: " + Application.persistentDataPath + "//");
             dataInst.Save(BaseSettings, FilePath);
             
             return;
@@ -80,9 +80,9 @@ public class SettingsData : MonoBehaviour
     private void Start()
     {
         if (FilePath == string.Empty)
-            FilePath = Application.persistentDataPath + "\\" + FileName;
+            FilePath = Application.persistentDataPath + "//" + FileName;
         else
-            FilePath = FilePath + "\\" + FileName;
+            FilePath = FilePath + "//" + FileName;
 
         DefaultSettings = BaseSettings;
         Resolutions = Screen.resolutions;
