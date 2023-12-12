@@ -1,11 +1,11 @@
-using UnityEngine;
+using System;
 
-public class SaveFileData : MonoBehaviour
+[Serializable]
+public class SaveFileData
 {
-    [field: SerializeField] public string FileName { get; set; }
-    [field: SerializeField] public string FriendlyName { get; set; }
-    [field: SerializeField] public string LevelName { get; set; }
-    [field: SerializeField] public int GoldCount { get; set; }
-    [field: SerializeField] public int LivesCount { get; set; }
-    [field: SerializeField] public Transform PreviousTransform { get; set; }
+    public string FileName;
+    public string FriendlyName;
+    public string LevelName;
+    public int GoldCount;
+    public int LivesCount;
 }

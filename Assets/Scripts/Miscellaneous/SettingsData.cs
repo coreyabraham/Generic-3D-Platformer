@@ -36,15 +36,15 @@ public class SettingsData : MonoBehaviour
     [field: SerializeField] public bool DeleteFileOnStart { get; set; }
 
     [HideInInspector] public Resolution[] Resolutions;
-    [HideInInspector] public BaseSettings DefaultSettings;
+    [HideInInspector] public BaseSettings DefaultSettings { get; internal set; }
 
     public void ApplySettings(BaseSettings Settings)
     {
-        if (Settings == BaseSettings)
-        {
-            Debug.LogWarning("No additional changes have been made, skipping...");
-            return;
-        }
+        // if (Settings == BaseSettings)
+        // {
+        //     Debug.LogWarning("No additional changes have been made, skipping...");
+        //     return;
+        // }
 
         BaseSettings = Settings;
         DataManager dataInst = new();

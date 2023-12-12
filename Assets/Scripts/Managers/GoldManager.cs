@@ -10,7 +10,13 @@ public class GoldManager : MonoBehaviour
     [field: SerializeField] public TMP_Text TextLabel { get; set; }
     [field: SerializeField] public List<GoldInstance> Golds { get; set; }
 
-    private void UpdateText() => TextLabel.text = "Gold: " + GameManager.Instance.CurrentSaveFile.GoldCount.ToString();
+    private void UpdateText()
+    {
+        if (!TextLabel.enabled)
+            TextLabel.enabled = true;
+
+        TextLabel.text = "Gold: " + SaveFileManager.Instance.SelectedSaveFile.GoldCount.ToString();
+    }
 
     private int GetTypeValue(GoldTypes gold)
     {
@@ -26,14 +32,14 @@ public class GoldManager : MonoBehaviour
 
     public void ModifyGold(GoldInstance gold, bool increase = true)
     {
-        int value = 0;
+        int value = GetTypeValue(gold.GoldType);
         string soundName = string.Empty;
 
-        switch (gold.GoldType) // convert this to "GetTypeValue()"!
+        switch (gold.GoldType)
         {
-            case GoldTypes.Regular: value = 1; soundName = "Regular"; break;
-            case GoldTypes.Big: value = 5; soundName = "Big"; break;
-            case GoldTypes.Mega: value = 10; soundName = "Mega"; break;
+            case GoldTypes.Regular: soundName = "Regular"; break;
+            case GoldTypes.Big: soundName = "Big"; break;
+            case GoldTypes.Mega: soundName = "Mega"; break;
         }
 
         if (!increase)
@@ -44,13 +50,14 @@ public class GoldManager : MonoBehaviour
 
         AudioManager.Instance.PlaySFX(soundName + " Gold");
 
-        GameManager.Instance.CurrentSaveFile.GoldCount += value;
-        TextLabel.text = "Gold: " + GameManager.Instance.CurrentSaveFile.GoldCount.ToString();
+        SaveFileManager.Instance.SelectedSaveFile.GoldCount += value;
+        TextLabel.text = "Gold: " + SaveFileManager.Instance.SelectedSaveFile.GoldCount.ToString();
 
-        if (GameManager.Instance.CurrentSaveFile.GoldCount < 1)
-            GameManager.Instance.CurrentSaveFile.GoldCount = 0;
+        if (SaveFileManager.Instance.SelectedSaveFile.GoldCount < 1)
+            SaveFileManager.Instance.SelectedSaveFile.GoldCount = 0;
 
         Golds.Add(gold);
+        UpdateText();
     }
 
     public async void ClearGold(int soundInterval = 0)
@@ -63,7 +70,7 @@ public class GoldManager : MonoBehaviour
 
         foreach (GoldInstance gold in Golds)
         {
-            GameManager.Instance.CurrentSaveFile.GoldCount -= GetTypeValue(gold.GoldType);
+            SaveFileManager.Instance.SelectedSaveFile.GoldCount -= GetTypeValue(gold.GoldType);
             UpdateText();
 
             if (soundInterval != 0)
@@ -75,9 +82,9 @@ public class GoldManager : MonoBehaviour
 
         Golds.Clear();
 
-        if (GameManager.Instance.CurrentSaveFile.GoldCount != 0)
+        if (SaveFileManager.Instance.SelectedSaveFile.GoldCount != 0)
         {
-            GameManager.Instance.CurrentSaveFile.GoldCount = 0;
+            SaveFileManager.Instance.SelectedSaveFile.GoldCount = 0;
             UpdateText();
         }
     }
@@ -90,7 +97,15 @@ public class GoldManager : MonoBehaviour
         if (!TextLabel.enabled)
             TextLabel.enabled = true;
 
-        TextLabel.text = "Gold: " + GameManager.Instance.CurrentSaveFile.GoldCount.ToString();
+        int value = 0;
+        bool enabled = SaveFileManager.Instance.SelectedSaveFile != null;
+
+        if (enabled)
+            value = SaveFileManager.Instance.SelectedSaveFile.GoldCount;
+
+        TextLabel.enabled = enabled;
+        TextLabel.text = "Gold: " + value.ToString();
     }
+
     private void Awake() => Instance ??= this;
 }

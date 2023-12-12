@@ -10,6 +10,8 @@ public class TrackCameraToPlayer : MonoBehaviour
     {
         Cursor.lockState = LockMode;
         Cursor.visible = ShowCursor;
+        
+        GameManager.Instance.Camera.m_Lens.FieldOfView = GameManager.Instance.FieldOfView;
     }
 
     private void Start()

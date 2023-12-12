@@ -28,10 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4703312655213537356}
-  - {fileID: 4119807528460277803}
-  - {fileID: 4443011073018463209}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,160 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4c0b92cf7dade46a570bec9fe4cf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SaveName>k__BackingField: SaveGame
   <DirectoryName>k__BackingField: Saves
+  <DirectoryPath>k__BackingField: 
+  <GlobalFileType>k__BackingField: .bin
+  <DefaultSaveFileData>k__BackingField:
+    FileName: 
+    FriendlyName: 
+    LevelName: Level 1
+    GoldCount: 0
+    LivesCount: 3
   <SaveFiles>k__BackingField:
-  - {fileID: 5799181986695961727}
-  - {fileID: 2000371983416928838}
-  - {fileID: 8386812804839076760}
-  <SaveFileTargetIndex>k__BackingField: 0
---- !u!1 &5405965618415386197
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4119807528460277803}
-  - component: {fileID: 2000371983416928838}
-  m_Layer: 0
-  m_Name: Save File 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4119807528460277803
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405965618415386197}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4479718050646924544}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2000371983416928838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405965618415386197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <FileName>k__BackingField: File2
-  <FriendlyName>k__BackingField: Save File 2
-  <LevelName>k__BackingField: Level 1
-  <GoldCount>k__BackingField: 0
-  <LivesCount>k__BackingField: 3
-  <PreviousTransform>k__BackingField: {fileID: 0}
---- !u!1 &6814906910877730672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4703312655213537356}
-  - component: {fileID: 5799181986695961727}
-  m_Layer: 0
-  m_Name: Save File 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4703312655213537356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814906910877730672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4479718050646924544}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5799181986695961727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814906910877730672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <FileName>k__BackingField: File1
-  <FriendlyName>k__BackingField: Save File 1
-  <LevelName>k__BackingField: Level 1
-  <GoldCount>k__BackingField: 0
-  <LivesCount>k__BackingField: 3
-  <PreviousTransform>k__BackingField: {fileID: 0}
---- !u!1 &7206620075154296612
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4443011073018463209}
-  - component: {fileID: 8386812804839076760}
-  m_Layer: 0
-  m_Name: Save File 3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4443011073018463209
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206620075154296612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4479718050646924544}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8386812804839076760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206620075154296612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <FileName>k__BackingField: File3
-  <FriendlyName>k__BackingField: Save File 3
-  <LevelName>k__BackingField: Level 1
-  <GoldCount>k__BackingField: 0
-  <LivesCount>k__BackingField: 3
-  <PreviousTransform>k__BackingField: {fileID: 0}
+  - FileName: SaveFile1
+    FriendlyName: Save File 1
+    LevelName: Level 1
+    GoldCount: 0
+    LivesCount: 3
+  - FileName: SaveFile2
+    FriendlyName: Save File 2
+    LevelName: Level 1
+    GoldCount: 0
+    LivesCount: 3
+  - FileName: SaveFile3
+    FriendlyName: Save File 3
+    LevelName: Level 1
+    GoldCount: 0
+    LivesCount: 3

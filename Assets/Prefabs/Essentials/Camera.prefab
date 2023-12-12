@@ -431,8 +431,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 312477437628823026}
-  - component: {fileID: 6044780002546388759}
   - component: {fileID: 643555788171437406}
+  - component: {fileID: 6044780002546388759}
   - component: {fileID: 9176724558621072016}
   m_Layer: 0
   m_Name: Main
@@ -456,6 +456,14 @@ Transform:
   m_Father: {fileID: 2360939011115335327}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &643555788171437406
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206610333085943543}
+  m_Enabled: 1
 --- !u!20 &6044780002546388759
 Camera:
   m_ObjectHideFlags: 0
@@ -499,14 +507,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &643555788171437406
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4206610333085943543}
-  m_Enabled: 1
 --- !u!114 &9176724558621072016
 MonoBehaviour:
   m_ObjectHideFlags: 0

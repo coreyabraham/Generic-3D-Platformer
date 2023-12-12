@@ -55,6 +55,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6887667860824991656}
     m_Modifications:
+    - target: {fileID: 6020558299144560738, guid: 2a82ca9c0bc8af141b25bc5b29f39424, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8516859265527838468, guid: 2a82ca9c0bc8af141b25bc5b29f39424, type: 3}
       propertyPath: m_Name
       value: Main UI
@@ -223,17 +227,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4479718050646924544, guid: 02e65f45d74d0b644adc6c71025d9ba8, type: 3}
   m_PrefabInstance: {fileID: 1598215865879733119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5067910322547654400 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5799181986695961727, guid: 02e65f45d74d0b644adc6c71025d9ba8, type: 3}
-  m_PrefabInstance: {fileID: 1598215865879733119}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fb6f216cef6804ca5b539a9349afbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7338865648832876059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,11 +236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 312477437628823026, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 312477437628823026, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 504846630854875468, guid: 8eab38c5844fafb4ba3391977653bd4a, type: 3}
       propertyPath: field of view
@@ -386,7 +379,7 @@ PrefabInstance:
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <CurrentSaveFile>k__BackingField
       value: 
-      objectReference: {fileID: 5067910322547654400}
+      objectReference: {fileID: 0}
     - target: {fileID: 3911741781161843119, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: m_Name
       value: Managers

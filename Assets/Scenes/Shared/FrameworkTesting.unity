@@ -932,6 +932,10 @@ PrefabInstance:
       propertyPath: field of view
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 4871752366454721265, guid: dfbe2720c9a0edb4ab41468d22f387b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4979678168360431748, guid: dfbe2720c9a0edb4ab41468d22f387b0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1

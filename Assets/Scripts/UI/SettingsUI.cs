@@ -1,9 +1,16 @@
+/*
+
+    TO DO
+    - When you open the settings menu and apply settings straight away without modifying the FPS or CamFOV values, they reset back to their zero defaults rather then the lowest values and carry over to the json file
+    - Audio Mixer isn't set properly on startup, to a point where the Audio Mixer gets set to 20 dB, literal ear-blasting volumes, please fix this ASAP!!!
+
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +24,11 @@ public class SettingsUI : MonoBehaviour
         [field: SerializeField] public Action<bool> Action { get; set; }
     }
 
+    [field: Header("Setup")]
+    [field: SerializeField] public GameObject Main { get; set; }
+    [field: SerializeField] public TMP_Text Title { get; set; }
+    [field: SerializeField] public SettingsData Settings { get; set; }
+
     [field: Header("Audio and Video Navigation")]
     [field: SerializeField] public Button AudioBtn { get; set; }
     [field: SerializeField] public Button VideoBtn { get; set; }
@@ -28,10 +40,6 @@ public class SettingsUI : MonoBehaviour
     [field: SerializeField] public Button ApplyBtn { get; set; }
     [field: SerializeField] public Button RevertBtn { get; set; }
     [field: SerializeField] public Button ExitBtn { get; set; }
-
-    [field: Header("Setup")]
-    [field: SerializeField] public TMP_Text Title { get; set; }
-    [field: SerializeField] public SettingsData Settings { get; set; }
 
     [field: Header("Values > Audio")]
     [field: SerializeField] public CommonSlider MasterVolumeSlider { get; set; }
@@ -50,7 +58,7 @@ public class SettingsUI : MonoBehaviour
     [field: SerializeField] public string[] MixerValues = new string[3];
     [field: SerializeField] public EventArgs[] EventArguments = new EventArgs[2];
 
-    [HideInInspector] public BaseSettings CurrentSettings = new();
+    [HideInInspector] public BaseSettings CurrentSettings;
 
     private void ChangeSubFrame(bool isAudio)
     {
@@ -107,12 +115,17 @@ public class SettingsUI : MonoBehaviour
         QualitySettings.SetQualityLevel(CurrentSettings.GameQuality);
         Application.targetFrameRate = CurrentSettings.FPS;
 
+        GameManager.Instance.FieldOfView = CurrentSettings.CamFOV;
         Settings.ApplySettings(CurrentSettings);
     }
 
     private void RevertSettings()
     {
-        CurrentSettings = Settings.DefaultSettings;
+        Settings.SetDefaults();
+
+        MasterVolumeSlider.Slider.value = CurrentSettings.MasterVolume;
+        SoundVolumeSlider.Slider.value = CurrentSettings.SoundVolume;
+        MusicVolumeSlider.Slider.value = CurrentSettings.MusicVolume;
 
         ResolutionDropdown.Dropdown.value = CurrentSettings.DisplayResolution;
         QualityDropdown.Dropdown.value = CurrentSettings.GameQuality;
@@ -141,34 +154,30 @@ public class SettingsUI : MonoBehaviour
 
     private void PostInitSetup()
     {
-        MasterVolumeSlider.Slider.value = Settings.BaseSettings.MasterVolume;
-        SoundVolumeSlider.Slider.value = Settings.BaseSettings.SoundVolume;
-        MusicVolumeSlider.Slider.value = Settings.BaseSettings.MusicVolume;
-        FPSSlider.Slider.value = Settings.BaseSettings.FPS;
-        CamFOVSlider.Slider.value = Settings.BaseSettings.CamFOV;
+        MasterVolumeSlider.Slider.value = CurrentSettings.MasterVolume;
+        SoundVolumeSlider.Slider.value = CurrentSettings.SoundVolume;
+        MusicVolumeSlider.Slider.value = CurrentSettings.MusicVolume;
+        FPSSlider.Slider.value = CurrentSettings.FPS;
+        CamFOVSlider.Slider.value = CurrentSettings.CamFOV;
 
-        MasterVolumeSlider.Input.text = Settings.BaseSettings.MasterVolume.ToString();
-        SoundVolumeSlider.Input.text = Settings.BaseSettings.SoundVolume.ToString();
-        MusicVolumeSlider.Input.text = Settings.BaseSettings.MusicVolume.ToString();
-        FPSSlider.Input.text = Settings.BaseSettings.FPS.ToString();
-        CamFOVSlider.Input.text = Settings.BaseSettings.CamFOV.ToString();
+        MasterVolumeSlider.Input.text = CurrentSettings.MasterVolume.ToString();
+        SoundVolumeSlider.Input.text = CurrentSettings.SoundVolume.ToString();
+        MusicVolumeSlider.Input.text = CurrentSettings.MusicVolume.ToString();
+        FPSSlider.Input.text = CurrentSettings.FPS.ToString();
+        CamFOVSlider.Input.text = CurrentSettings.CamFOV.ToString();
 
-        QualityDropdown.Dropdown.value = Settings.BaseSettings.GameQuality;
-        QualitySettings.SetQualityLevel(Settings.BaseSettings.GameQuality);
+        QualityDropdown.Dropdown.value = CurrentSettings.GameQuality;
+        QualitySettings.SetQualityLevel(CurrentSettings.GameQuality);
 
-        FullscreenToggle.isOn = Settings.BaseSettings.Fullscreen;
-        DisplayFPSToggle.isOn = Settings.BaseSettings.DisplayFPS;
+        FullscreenToggle.isOn = CurrentSettings.Fullscreen;
+        DisplayFPSToggle.isOn = CurrentSettings.DisplayFPS;
 
-        CurrentSettings.MasterVolume = Settings.BaseSettings.MasterVolume;
-        CurrentSettings.SoundVolume = Settings.BaseSettings.SoundVolume;
-        CurrentSettings.MusicVolume = Settings.BaseSettings.MusicVolume;
+        Debug.Log(CurrentSettings.MasterVolume);
+        Debug.Log(AudioSliderCalculations(CurrentSettings.MasterVolume));
 
         AudioSliderChanged(0, CurrentSettings.MasterVolume);
         AudioSliderChanged(1, CurrentSettings.SoundVolume);
         AudioSliderChanged(2, CurrentSettings.MusicVolume);
-
-        CurrentSettings.DisplayResolution = Settings.BaseSettings.DisplayResolution;
-        CurrentSettings.Fullscreen = Settings.BaseSettings.Fullscreen;
 
         MasterVolumeSlider.Slider.onValueChanged.AddListener(MasterVolumeChanged);
         SoundVolumeSlider.Slider.onValueChanged.AddListener(SoundVolumeChanged);
@@ -185,7 +194,7 @@ public class SettingsUI : MonoBehaviour
         RevertBtn.onClick.AddListener(() => { DenyRequested(EventArguments[1]); });
 
         ExitBtn.onClick.AddListener(delegate { gameObject.SetActive(false); });
-        Settings.SettingsChanged?.Invoke(Settings.BaseSettings);
+        Settings.SettingsChanged?.Invoke(CurrentSettings);
     }
 
     private void ValidateData()
@@ -231,6 +240,12 @@ public class SettingsUI : MonoBehaviour
             (int)CamFOVSlider.Slider.minValue,
             (int)CamFOVSlider.Slider.maxValue
         );
+
+        GameManager.Instance.FieldOfView = Settings.BaseSettings.CamFOV;
+        CurrentSettings = Settings.BaseSettings;
+
+        // Debug.Log(Settings.BaseSettings.FPS);
+        // Debug.Log(Settings.BaseSettings.CamFOV);
     }
 
     private void SetupResolutions()
@@ -254,8 +269,13 @@ public class SettingsUI : MonoBehaviour
         ResolutionDropdown.Dropdown.value = Settings.BaseSettings.DisplayResolution;
     }
 
+    public void ToggleUI() => Main.SetActive(!Main.activeSelf);
+
     public void Initalize()
     {
+        if (CurrentSettings == null)
+            CurrentSettings = new();
+
         if (!AudioFrame.activeSelf)
             AudioFrame.SetActive(true);
 
