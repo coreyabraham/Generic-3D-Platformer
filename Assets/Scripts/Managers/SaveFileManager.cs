@@ -26,6 +26,14 @@ public class SaveFileManager : MonoBehaviour
         SelectedSaveFile = SaveFile;
     }
 
+    public void SetSelectedSaveFile()
+    {
+        if (SelectedSaveFile != null)
+            return;
+
+        SelectedSaveFile = SaveFiles[0];
+    }
+
     private SaveFileData LoadSave(SaveFileData SaveFile)
     {
         BinaryFormatter formater = new();

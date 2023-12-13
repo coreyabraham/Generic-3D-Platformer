@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,11 @@ public class GameManager : MonoBehaviour
 
     [field: Header("General")]
     [field: SerializeField] public Cinemachine.CinemachineFreeLook Camera { get; set; }
-    [field: SerializeField] public SaveFileData CurrentSaveFile { get; set; }
     [field: SerializeField] public PlayerController Player { get; set; }
 
     [field: Header("Miscellaneous")]
     [field: SerializeField] public float FieldOfView { get; set; } = 40.0f;
+    [field: SerializeField] private UnityEvent<bool> TogglePlayerUI { get; set; }
 
     public static async void WaitForTask(Task timeoutTask, Action onComplete)
     {
@@ -28,15 +29,12 @@ public class GameManager : MonoBehaviour
 
     public static async Task Timer(int timeMS) => await Task.Delay(timeMS);
 
-    private void Update()
-    {
-        // CODE GOES HERE!
-    }
+    // port this into "Assistant.cs" script full of other one-off functions like this!
+    public void UpdatePlayerUI(bool option) => TogglePlayerUI?.Invoke(option);
 
-    private void Start()
+    private void Awake()
     {
-        // CODE GOES HERE!
+        Instance ??= this;
+        TogglePlayerUI ??= new();
     }
-
-    private void Awake() => Instance ??= this;
 }

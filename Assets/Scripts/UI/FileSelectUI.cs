@@ -28,7 +28,13 @@ public class FileSelectUI : MonoBehaviour
     private int SelectedFile;
     private EventArgs ResetArgs;
 
-    public void TempClicked(string SceneName) => SceneController.Instance.LoadScene(SceneName);
+    public void TempClicked(string SceneName)
+    {
+        if (SaveFileManager.Instance.SelectedSaveFile == null)
+            SaveFileManager.Instance.SetSelectedSaveFile();
+
+        SceneController.Instance.LoadScene(SceneName);
+    }
 
     private bool ValidateSelection()
     {

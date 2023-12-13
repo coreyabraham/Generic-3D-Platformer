@@ -12,28 +12,28 @@ public class AudibleMaterial
 public class PlayerController : MonoBehaviour
 {
     [field: Header("General")]
-    [field: SerializeField] public float CharacterSpeed { get; set; }
-    [field: SerializeField] public float JumpHeight { get; set; }
+    [field: SerializeField] private float CharacterSpeed { get; set; }
+    [field: SerializeField] private float JumpHeight { get; set; }
 
     [field: Header("Specific")]
-    [field: SerializeField] public PlayerStates PlayerState { get; set; }
-    [field: SerializeField] public AudibleMaterial[] Materials;
+    [field: SerializeField] private PlayerStates PlayerState { get; set; }
+    [field: SerializeField] private AudibleMaterial[] Materials;
 
-    [field: Header("Body Parts")]
-    [field: SerializeField] public Transform Root;
-    [field: SerializeField] public Transform Head;
-    [field: SerializeField] public Transform Chest;
-    [field: SerializeField] public Transform LeftHand;
-    [field: SerializeField] public Transform RightHand;
-    [field: SerializeField] public Transform LeftFoot;
-    [field: SerializeField] public Transform RightFoot;
+    [field: Header("Body Parts"), Tooltip("Unused for now, will be used once VFX is introduced!")]
+    [field: SerializeField] private Transform Root;
+    [field: SerializeField] private Transform Head;
+    [field: SerializeField] private Transform Chest;
+    [field: SerializeField] private Transform LeftHand;
+    [field: SerializeField] private Transform RightHand;
+    [field: SerializeField] private Transform LeftFoot;
+    [field: SerializeField] private Transform RightFoot;
 
     private Dictionary<BodyPart, Transform> parts;
 
     private Animator _animator;
     private CharacterController _controller;
     private Rigidbody _rigid;
-    [field: SerializeField] public Vector3 _moveDirection { get; set; } // will become a private once tested properly!
+    [field: SerializeField] private Vector3 _moveDirection { get; set; } // will become a private once tested properly!
 
     public Transform GetBodyPart(BodyPart part)
     {
@@ -130,7 +130,8 @@ public class PlayerController : MonoBehaviour
             _controller = GetComponent<CharacterController>();
             _rigid = GetComponentInChildren<Rigidbody>();
 
-            name = "Player"; 
+            GameManager.Instance.UpdatePlayerUI(true);
+            name = "Player";
         });
     }
 
