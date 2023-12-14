@@ -4,7 +4,9 @@ public class GoldInstance : MonoBehaviour
 {
     [field: SerializeField] public GoldTypes GoldType { get; set; }
     [field: SerializeField] public bool IncreaseValue { get; set; } = true;
-    [field: SerializeField] public bool IsEnabled = true;
+    [field: SerializeField] private string VFXName { get; set; }
+    
+    public bool IsEnabled = true;
 
     public void ToggleUsablity()
     {
@@ -15,6 +17,8 @@ public class GoldInstance : MonoBehaviour
         
         SphereCollider collider = GetComponent<SphereCollider>();
         collider.enabled = !collider.enabled;
+
+        VFXManager.Instance.Play(VFXName, transform);
     }
 
     public void OnTriggerEnter(Collider other)

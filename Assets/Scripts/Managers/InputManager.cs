@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
 
     private GameInput Inputs { get; set; }
 
-    [HideInInspector] public UnityEvent<Vector3> Player_Move;
+    [HideInInspector] public UnityEvent<Vector2> Player_Move;
     [HideInInspector] public UnityEvent<bool> Player_Jump;
     [HideInInspector] public UnityEvent<bool> Player_Crouch;
     [HideInInspector] public UnityEvent<bool> Player_Interact;
@@ -30,10 +30,10 @@ public class InputManager : MonoBehaviour
         DisableControls();
     }
 
-    private void EnableControls()
+    public void EnableControls()
     {
-        Inputs.Player.Move.started += PlayerMove;
         Inputs.Player.Move.performed += PlayerMove;
+        Inputs.Player.Move.started += PlayerMove;
         Inputs.Player.Move.canceled += PlayerMove;
 
         Inputs.Player.Jump.performed += PlayerJump;
@@ -42,14 +42,12 @@ public class InputManager : MonoBehaviour
         Inputs.Player.Pause.performed += PlayerPause;
 
         Inputs.Player.Enable();
-
-        Debug.Log("Enabled");
     }
 
-    private void DisableControls()
+    public void DisableControls()
     {
-        Inputs.Player.Move.started -= PlayerMove;
         Inputs.Player.Move.performed -= PlayerMove;
+        Inputs.Player.Move.started -= PlayerMove;
         Inputs.Player.Move.canceled -= PlayerMove; 
 
         Inputs.Player.Jump.performed -= PlayerJump;
@@ -72,10 +70,7 @@ public class InputManager : MonoBehaviour
         Player_Pause ??= new();
     }
 
-    public void PlayerMove(InputAction.CallbackContext ctx) {
-        Debug.Log("Hello?");
-        Player_Move?.Invoke(ctx.ReadValue<Vector3>());
-    }
+    public void PlayerMove(InputAction.CallbackContext ctx) => Player_Move?.Invoke(ctx.ReadValue<Vector2>());
     public void PlayerJump(InputAction.CallbackContext ctx) => Player_Jump?.Invoke(ctx.ReadValueAsButton());
     public void PlayerCrouch(InputAction.CallbackContext ctx) => Player_Crouch?.Invoke(ctx.ReadValueAsButton());
     public void PlayerInteract(InputAction.CallbackContext ctx) => Player_Interact?.Invoke(ctx.ReadValueAsButton());

@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &131256929029027056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295941356959854510}
+  - component: {fileID: 7335018310233551348}
+  m_Layer: 0
+  m_Name: VFX Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295941356959854510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131256929029027056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 208472480190705638}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7335018310233551348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131256929029027056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6e39345c9f3c64fb74084788b4246d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <VFXPaths>k__BackingField:
+  - VFXs
 --- !u!1 &1434480730968890378
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,7 +76,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208472480190705638}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3995372317255304932
 MonoBehaviour:
@@ -75,7 +121,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208472480190705638}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3740055043941535078
 MonoBehaviour:
@@ -152,6 +198,7 @@ Transform:
   - {fileID: 5128661236074965301}
   - {fileID: 317465028134207254}
   - {fileID: 1685437266941739771}
+  - {fileID: 1295941356959854510}
   - {fileID: 757226600376357325}
   - {fileID: 8691015167110607056}
   - {fileID: 4368235466107277128}
@@ -202,6 +249,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baffbb80edcb6245a11479db5cd58e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LinearLevels>k__BackingField:
+  - Title Screen
+  - Level 1
+  - Level 2
+  - End Scene
 --- !u!1 &4831932869429569823
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,14 +299,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Camera>k__BackingField: {fileID: 0}
-  <CurrentSaveFile>k__BackingField:
-    FileName: 
-    FriendlyName: 
-    LevelName: 
-    GoldCount: 0
-    LivesCount: 0
   <Player>k__BackingField: {fileID: 0}
   <FieldOfView>k__BackingField: 40
+  <PlatformType>k__BackingField: 0
+  <TogglePlayerUI>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <LevelFinished>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5695201923121691405
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208472480190705638}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &615777865175712153
 MonoBehaviour:

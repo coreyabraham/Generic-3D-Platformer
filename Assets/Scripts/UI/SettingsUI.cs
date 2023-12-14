@@ -139,7 +139,7 @@ public class SettingsUI : MonoBehaviour
 
     private float AudioSliderCalculations(float value) => Mathf.Log10(value) * 20;
 
-    private void AudioSliderChanged(int ValuePointer, float value) => AudioManager.Instance.AudioMixer.SetFloat(MixerValues[ValuePointer], AudioSliderCalculations(value));
+    private void AudioSliderChanged(int valuePointer, float value) => AudioManager.Instance.AudioMixer.SetFloat(MixerValues[valuePointer], AudioSliderCalculations(value));
 
     private void MasterVolumeChanged(float value) { CurrentSettings.MasterVolume = value; AudioSliderChanged(0, value); }
     private void SoundVolumeChanged(float value) { CurrentSettings.SoundVolume = value; AudioSliderChanged(1, value); }
@@ -172,12 +172,10 @@ public class SettingsUI : MonoBehaviour
         FullscreenToggle.isOn = CurrentSettings.Fullscreen;
         DisplayFPSToggle.isOn = CurrentSettings.DisplayFPS;
 
-        Debug.Log(CurrentSettings.MasterVolume);
-        Debug.Log(AudioSliderCalculations(CurrentSettings.MasterVolume));
-
-        AudioSliderChanged(0, CurrentSettings.MasterVolume);
-        AudioSliderChanged(1, CurrentSettings.SoundVolume);
-        AudioSliderChanged(2, CurrentSettings.MusicVolume);
+        // FIX THIS ON START!
+        //AudioSliderChanged(0, CurrentSettings.MasterVolume);
+        //AudioSliderChanged(1, CurrentSettings.SoundVolume);
+        //AudioSliderChanged(2, CurrentSettings.MusicVolume);
 
         MasterVolumeSlider.Slider.onValueChanged.AddListener(MasterVolumeChanged);
         SoundVolumeSlider.Slider.onValueChanged.AddListener(SoundVolumeChanged);

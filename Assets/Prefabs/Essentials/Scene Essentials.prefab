@@ -381,7 +381,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6081300393117159661}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <TogglePlayerUI>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
@@ -389,9 +397,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2446278110814909829}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <TogglePlayerUI>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2446278110814909829}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LevelFinished
+      objectReference: {fileID: 0}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <TogglePlayerUI>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -401,8 +421,16 @@ PrefabInstance:
       value: ToggleUI
       objectReference: {fileID: 0}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <TogglePlayerUI>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
+      propertyPath: <LevelFinished>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2762477754417489381, guid: 6b5497744d17f5243b06e2523f121dc2, type: 3}
       propertyPath: <TogglePlayerUI>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

@@ -14,8 +14,13 @@ public class GameManager : MonoBehaviour
 
     [field: Header("Miscellaneous")]
     [field: SerializeField] public float FieldOfView { get; set; } = 40.0f;
-    [field: SerializeField] private UnityEvent<bool> TogglePlayerUI { get; set; }
+    [field: SerializeField] public PlatformTypes PlatformType { get; set; }
 
+    [field: Header("Events")]
+    [field: SerializeField] public UnityEvent<bool> TogglePlayerUI { get; set; }
+    [field: SerializeField] public UnityEvent LevelFinished { get; set; }
+
+    // port this into "Assistant.cs" script full of other one-off functions like this!
     public static async void WaitForTask(Task timeoutTask, Action onComplete)
     {
         if (await Task.WhenAny(timeoutTask, Task.Delay(1000)) == timeoutTask)
@@ -28,9 +33,6 @@ public class GameManager : MonoBehaviour
     }
 
     public static async Task Timer(int timeMS) => await Task.Delay(timeMS);
-
-    // port this into "Assistant.cs" script full of other one-off functions like this!
-    public void UpdatePlayerUI(bool option) => TogglePlayerUI?.Invoke(option);
 
     private void Awake()
     {

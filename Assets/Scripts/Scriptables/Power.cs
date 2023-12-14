@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Powerup", fileName = "Powerup")]
+[CreateAssetMenu(menuName = "Game/Power Up", fileName = "Power Up")]
 public class Power : ScriptableObject
 {
     [field: Header("Modifiers")]
