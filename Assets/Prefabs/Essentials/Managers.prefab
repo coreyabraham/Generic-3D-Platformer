@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10d6d2b698c4d04b95d48930f2b8e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Lives>k__BackingField: []
 --- !u!1 &3269409358162385527
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +254,7 @@ MonoBehaviour:
   - Title Screen
   - Level 1
   - Level 2
-  - End Scene
+  _currentIndex: -1
 --- !u!1 &4831932869429569823
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,13 +497,10 @@ MonoBehaviour:
   Player_Move:
     m_PersistentCalls:
       m_Calls: []
+  Player_Look:
+    m_PersistentCalls:
+      m_Calls: []
   Player_Jump:
-    m_PersistentCalls:
-      m_Calls: []
-  Player_Crouch:
-    m_PersistentCalls:
-      m_Calls: []
-  Player_Interact:
     m_PersistentCalls:
       m_Calls: []
   Player_Pause:

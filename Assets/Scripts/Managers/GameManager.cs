@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [field: Header("Events")]
     [field: SerializeField] public UnityEvent<bool> TogglePlayerUI { get; set; }
-    [field: SerializeField] public UnityEvent LevelFinished { get; set; }
+    [field: SerializeField] public UnityEvent<string> LevelFinished { get; set; }
 
     // port this into "Assistant.cs" script full of other one-off functions like this!
     public static async void WaitForTask(Task timeoutTask, Action onComplete)
@@ -38,5 +38,15 @@ public class GameManager : MonoBehaviour
     {
         Instance ??= this;
         TogglePlayerUI ??= new();
+
+        switch (SystemInfo.deviceType)
+        {
+            case DeviceType.Desktop: PlatformType = PlatformTypes.PC; break;
+            case DeviceType.Handheld: PlatformType = PlatformTypes.Mobile; break;
+            case DeviceType.Unknown: PlatformType = PlatformTypes.WebGL; break;
+        }
+
+        if (Application.isMobilePlatform && PlatformType != PlatformTypes.Mobile)
+            PlatformType = PlatformTypes.Mobile;
     }
 }

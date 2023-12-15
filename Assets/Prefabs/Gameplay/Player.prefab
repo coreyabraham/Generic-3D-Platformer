@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 3623533780613559906}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8184405920669758122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4659522463613898252}
+  m_Layer: 0
+  m_Name: FeetPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4659522463613898252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184405920669758122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3623533780613559906}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8708066111148303311
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +97,7 @@ Transform:
   m_Children:
   - {fileID: 8573875488518164097}
   - {fileID: 1883424918345517383}
+  - {fileID: 4659522463613898252}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,7 +132,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.875
+  m_Height: 2
   m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -138,6 +170,7 @@ MonoBehaviour:
   <Tracker>k__BackingField: {fileID: 1883424918345517383}
   <LockMode>k__BackingField: 1
   <ShowCursor>k__BackingField: 0
+  <EmulateMobile>k__BackingField: 0
 --- !u!114 &3723887770603437941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,19 +185,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterSpeed>k__BackingField: 7
   <JumpHeight>k__BackingField: 1
-  <GravityMultiplier>k__BackingField: 0
+  <GravityMultiplier>k__BackingField: 1
+  <Feet>k__BackingField: {fileID: 8184405920669758122}
+  <GroundMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
   <Model>k__BackingField: {fileID: 4658938133907979410}
-  <PlayerState>k__BackingField: 0
   Materials:
   - <SoundName>k__BackingField: Generic
     <Material>k__BackingField: {fileID: 13400000, guid: 04a058bb0d9546b4ca90831a04836ec3, type: 2}
   - <SoundName>k__BackingField: Grass
     <Material>k__BackingField: {fileID: 13400000, guid: a29592a180087244ba6eac3a60c00f6c, type: 2}
-  _velocity: 0
-  <_moveDirection>k__BackingField: {x: 0, y: 0, z: 0}
-  <_isRunning>k__BackingField: 0
-  <_isGrounded>k__BackingField: 0
-  <_targetRotation>k__BackingField: 0
 --- !u!1001 &3712710580223894939
 PrefabInstance:
   m_ObjectHideFlags: 0

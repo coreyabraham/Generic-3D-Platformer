@@ -74,5 +74,11 @@ public class TitleScreen : MonoBehaviour
         ExitBtn.onClick.AddListener(ExitClicked);
 
         ButtonsEnabled = true;
+
+        if (Cursor.lockState != CursorLockMode.None)
+            Cursor.lockState = CursorLockMode.None;
+
+        if (!Cursor.visible)
+            Cursor.visible = true;
     }
 }

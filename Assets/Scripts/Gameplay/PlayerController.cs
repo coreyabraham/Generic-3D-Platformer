@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class AudibleMaterial
@@ -16,24 +17,28 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] private float CharacterSpeed { get; set; }
     [field: SerializeField] private float JumpHeight { get; set; }
     [field: SerializeField] private float GravityMultiplier { get; set; }
+    
+    [field: Header("Gound Checking")]
+    [field: SerializeField] private GameObject Feet { get; set; }
+    [field: SerializeField] private LayerMask GroundMask { get; set; }
 
     [field: Header("Specific")]
     [field: SerializeField] private GameObject Model { get; set; }
-    [field: SerializeField] private PlayerStates PlayerState { get; set; }
     [field: SerializeField] private AudibleMaterial[] Materials;
 
     private float _gravity = -9.81f;
-    [field: SerializeField] private float _velocity;
-
-    private Dictionary<BodyPart, Transform> parts;
+    private float _velocity;
 
     private Animator _animator;
     private CharacterController _controller;
     private Rigidbody _rigid;
-    [field: SerializeField] private Vector3 _moveDirection { get; set; } // will become a private once tested properly!
-    [field: SerializeField] private bool _isRunning { get; set; }
-    [field: SerializeField] private bool _isGrounded { get; set; }
-    [field: SerializeField] private float _targetRotation { get; set; }
+
+    private Vector3 _moveDirection;
+    private bool _isRunning;
+    private bool _isGrounded;
+    private bool _isJumping;
+    private bool _isDying { get; set; }
+    private float _targetRotation;
 
     public void Step(int footIndex)
     {
@@ -56,72 +61,35 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        AudioManager.Instance.Play(footstep + footIndex.ToString());
-    }
-    
-    private void Gravity()
-    {
-        if (_isGrounded && _velocity < 0.0f)
-        {
-            _velocity = -1.0f;
-            return;
-        }
-
-        _velocity += _gravity * GravityMultiplier * Time.deltaTime;
+        //Debug.Log(footstep + "Footstep" + footIndex.ToString());
+        AudioManager.Instance.Play(footstep + "Footstep" + footIndex.ToString());
     }
 
-    private void Rotation()
-    {
-        if (!_isRunning)
-            return;
-
-        _targetRotation = Quaternion.LookRotation(_moveDirection).eulerAngles.y + GameManager.Instance.Camera.transform.rotation.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, _targetRotation, 0);
-
-        Model.transform.rotation = Quaternion.Slerp(Model.transform.rotation, rotation, 20 * Time.deltaTime);
-    }
-
-    private void Movement()
-    {
-        _animator.SetBool("IsRunning", _isRunning);
-
-        if (!_isRunning)
-        {
-            if (PlayerState != PlayerStates.Crouching || PlayerState != PlayerStates.Dying)
-                PlayerState = PlayerStates.Idle;
-
-            return;
-        }
-
-        if (PlayerState != PlayerStates.Crouching || PlayerState != PlayerStates.Dying)
-            PlayerState = PlayerStates.Running;
-
-        _controller.Move(_moveDirection * Time.deltaTime);
-        //Vector3 targetDirection = Quaternion.Euler(0, _targetRotation, 0) * _moveDirection;
-    }
-
-    public void Move(Vector2 direction) => _moveDirection = new Vector3(direction.x * CharacterSpeed, _velocity, direction.y * CharacterSpeed);
+    public void Move(Vector2 direction) => _moveDirection = new Vector3(direction.x, 0, direction.y);
 
     public void Jump(bool value)
     {
-        if (PlayerState == PlayerStates.Dying || PlayerState == PlayerStates.Crouching)
+        if (_isDying || _isJumping)
             return;
 
-        PlayerState = PlayerStates.Jumping;
-
+        _isJumping = true;
+        _velocity += Mathf.Sqrt(JumpHeight * -3.0f * _gravity);
     }
 
     public void TriggerDeath()
     {
-        if (PlayerState == PlayerStates.Dying)
+        if (_isDying)
             return;
 
-        PlayerState = PlayerStates.Dying;
-        Debug.LogWarning("DO DEATH HERE!", this);
+        _isDying = true;
 
         AudioManager.Instance.Play("Lost Gold");
+        InputManager.Instance.DisableControls();
 
-        // DO CODE HERE!
+        LifeManager.Instance.ModifyLives(false, LifeTypes.Regular);
+
+        if (SaveFileManager.Instance.SelectedSaveFile.LivesCount > 0)
+            SceneController.Instance.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private async Task WaitForManagers()
@@ -162,10 +130,35 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _isRunning = (_moveDirection.x != 0 || _moveDirection.z != 0);
-        _isGrounded = _controller.isGrounded;
+        _isGrounded = Physics.CheckSphere(Feet.transform.position, _controller.radius, GroundMask);
+            
+        _animator.SetBool("IsRunning", _isRunning && _isGrounded);
+        _animator.SetBool("IsJumping", _isJumping && !_isGrounded);
 
-        Gravity();
-        Rotation();
-        Movement();
+        if (!_animator.GetBool("IsJumping") && _isGrounded)
+            _isJumping = false;
+
+        if (_isGrounded && _velocity < 0.0f)
+            _velocity = 0.0f;
+
+        float speed = 0.0f;
+
+        if (_isRunning)
+        {
+            speed = CharacterSpeed;
+
+            _targetRotation = Quaternion.LookRotation(_moveDirection).eulerAngles.y + GameManager.Instance.Camera.transform.rotation.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0, _targetRotation, 0);
+
+            Model.transform.rotation = Quaternion.Slerp(Model.transform.rotation, rotation, 20 * Time.deltaTime);
+        }
+
+        Vector3 refinedDirection = Quaternion.Euler(0, _targetRotation, 0) * Vector3.forward;
+        _controller.Move(refinedDirection * speed * Time.deltaTime);
+
+        _velocity += _gravity * GravityMultiplier * Time.deltaTime;
+        _controller.Move(new Vector3(0, _velocity, 0) * Time.deltaTime);
+        
+        //Vector3 targetDirection = Quaternion.Euler(0, _targetRotation, 0) * _moveDirection;
     }
 }

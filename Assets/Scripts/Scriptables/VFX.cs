@@ -7,6 +7,7 @@ public class VFX : ScriptableObject
     [field: SerializeField] public GameObject ParticlePrefab { get; set; }
     [field: SerializeField] public bool DestroyAfter { get; set; }
     [field: SerializeField] public float AliveTime { get; set; }
+    [field: SerializeField] public bool UseVFXAliveTime { get; set; }
 
     internal GameObject Play(Transform position) => Play(position.position);
     internal GameObject Play(Vector3 position)
@@ -14,10 +15,15 @@ public class VFX : ScriptableObject
         GameObject obj = Instantiate(ParticlePrefab);
         obj.transform.position = position;
 
+        ParticleSystem part = obj.GetComponent<ParticleSystem>();
+
+        if (UseVFXAliveTime)
+            AliveTime = part.main.duration;
+
         if (DestroyAfter)
             Destroy(obj, AliveTime);
 
-        obj.GetComponent<ParticleSystem>().Play();
+        part.Play();
         return obj;
     }
 

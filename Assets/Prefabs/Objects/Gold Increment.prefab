@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GoldType>k__BackingField: 0
   <IncreaseValue>k__BackingField: 1
-  <VFXName>k__BackingField: Shockwave
+  <VFXName>k__BackingField: Item Collected
   IsEnabled: 1
 --- !u!135 &116976396011059070
 SphereCollider:

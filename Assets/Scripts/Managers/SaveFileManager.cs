@@ -112,10 +112,12 @@ public class SaveFileManager : MonoBehaviour
         if (!Directory.Exists(DirectoryPath))
             Directory.CreateDirectory(DirectoryPath);
 
-        foreach (SaveFileData data in SaveFiles)
+        for (int i = 0; i < SaveFiles.Length; i++)
         {
-            if (!File.Exists(DirectoryPath + "/" + data.FileName + GlobalFileType))
-                SaveToFile(data);
+            if (!File.Exists(DirectoryPath + "/" + SaveFiles[i].FileName + GlobalFileType))
+                SaveToFile(SaveFiles[i]);
+            else
+                SaveFiles[i] = LoadFromFile(SaveFiles[i]);
         }
     }
 }

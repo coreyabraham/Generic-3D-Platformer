@@ -1,4 +1,4 @@
-public enum GoldTypes 
+public enum LifeTypes
 {
     Regular = 0,
     Big,

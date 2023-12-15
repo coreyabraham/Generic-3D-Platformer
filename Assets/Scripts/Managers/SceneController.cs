@@ -12,22 +12,42 @@ public class SceneController : MonoBehaviour
     [field: SerializeField] private int _currentIndex = -1;
     private Action _carriedAction;
 
+    public void SetCurrentIndex(int index)
+    {
+        #if !UNITY_EDITOR
+            return;
+        #endif
+
+        _currentIndex = index;
+    }
+
     public void LoadFromIndex(bool loadBackwards = false, Action action = null)
     {
         int modifier = !loadBackwards ? 1 : -1;
 
         if (LinearLevels[_currentIndex] + modifier == null)
         {
-            Debug.Log("Error loading target scene with index: " + _currentIndex.ToString() + ", it may not exist within 'LinearLevels[" + LinearLevels.Length.ToString() + "]!", this);
+            Debug.LogWarning("Error loading target scene with index: " + _currentIndex.ToString() + ", it may not exist within 'LinearLevels[" + LinearLevels.Length.ToString() + "]!", this);
             return;
         }
 
         _currentIndex += modifier;
-        LoadScene(LinearLevels[_currentIndex], action);
+        LoadScene(LinearLevels[_currentIndex], 0, action);
     }
 
-    public void LoadScene(string targetScene, Action action = null)
+    public void LoadScene(string targetScene, int modifyIndex = 0, Action action = null)
     {
+        if (modifyIndex != 0)
+        {
+            if (LinearLevels[modifyIndex] == null)
+                return;
+
+            _currentIndex = modifyIndex;
+        }
+
+        if (SaveFileManager.Instance.SelectedSaveFile != null)
+            SaveFileManager.Instance.SelectedSaveFile.LevelName = targetScene;
+
         SceneManager.LoadScene(targetScene);
         SceneManager.sceneLoaded += SceneLoaded;
 

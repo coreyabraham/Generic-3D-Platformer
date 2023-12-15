@@ -1,11 +1,3 @@
-/*
-
-    TO DO
-    - When you open the settings menu and apply settings straight away without modifying the FPS or CamFOV values, they reset back to their zero defaults rather then the lowest values and carry over to the json file
-    - Audio Mixer isn't set properly on startup, to a point where the Audio Mixer gets set to 20 dB, literal ear-blasting volumes, please fix this ASAP!!!
-
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,7 +164,6 @@ public class SettingsUI : MonoBehaviour
         FullscreenToggle.isOn = CurrentSettings.Fullscreen;
         DisplayFPSToggle.isOn = CurrentSettings.DisplayFPS;
 
-        // FIX THIS ON START!
         //AudioSliderChanged(0, CurrentSettings.MasterVolume);
         //AudioSliderChanged(1, CurrentSettings.SoundVolume);
         //AudioSliderChanged(2, CurrentSettings.MusicVolume);
@@ -191,7 +182,7 @@ public class SettingsUI : MonoBehaviour
         ApplyBtn.onClick.AddListener(() => { ApplyRequested(EventArguments[0]); });
         RevertBtn.onClick.AddListener(() => { DenyRequested(EventArguments[1]); });
 
-        ExitBtn.onClick.AddListener(delegate { gameObject.SetActive(false); });
+        ExitBtn.onClick.AddListener(delegate { Main.SetActive(false); });
         Settings.SettingsChanged?.Invoke(CurrentSettings);
     }
 

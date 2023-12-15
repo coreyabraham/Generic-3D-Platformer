@@ -1,5 +1,4 @@
 using System;
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,13 +60,19 @@ public class FileSelectUI : MonoBehaviour
         if (!result)
             return;
 
-        // This doesn't run due to the scene changing and this code not running, please fix!
-        void Test() => print("UPDATE GAME / PLAYER VALUES HERE!");
-
         SaveFileData data = SaveFileManager.Instance.LoadFromFile();
 
-        Debug.Log("DATA FINISHED LOADING: " + data.FriendlyName, this);
-        SceneController.Instance.LoadScene(data.LevelName, Test);
+        int index = 0;
+        for (int i = 0; i < SceneController.Instance.LinearLevels.Length; i++)
+        {
+            if (SceneController.Instance.LinearLevels[i] == data.LevelName)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        SceneController.Instance.LoadScene(data.LevelName, index);
     }
 
     private void DeleteSelected()
@@ -112,6 +117,8 @@ public class FileSelectUI : MonoBehaviour
     private void Save2Selected() { SelectedFile = 2; ValidateSelection(); }
     private void Save3Selected() { SelectedFile = 3; ValidateSelection(); }
 
+    private void FormatText(TMP_Text TextLabel, SaveFileData SaveData) => TextLabel.text = SaveData.FriendlyName + " // " + SaveData.LevelName;
+
     private void Start()
     {
         ResetArgs = new()
@@ -121,13 +128,13 @@ public class FileSelectUI : MonoBehaviour
         };
 
         TMP_Text text = SaveFile1.GetComponentInChildren<TMP_Text>();
-        text.text = SaveFileManager.Instance.SaveFiles[0].FriendlyName;
+        FormatText(text, SaveFileManager.Instance.SaveFiles[0]);
 
         text = SaveFile2.GetComponentInChildren<TMP_Text>();
-        text.text = SaveFileManager.Instance.SaveFiles[1].FriendlyName;
-        
+        FormatText(text, SaveFileManager.Instance.SaveFiles[1]);
+
         text = SaveFile3.GetComponentInChildren<TMP_Text>();
-        text.text = SaveFileManager.Instance.SaveFiles[2].FriendlyName;
+        FormatText(text, SaveFileManager.Instance.SaveFiles[2]);
 
         SaveFile1.onClick.AddListener(Save1Selected);
         SaveFile2.onClick.AddListener(Save2Selected);

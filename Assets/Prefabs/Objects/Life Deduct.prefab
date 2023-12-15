@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 449512505144431137}
-  - component: {fileID: 1397855487918248811}
+  - component: {fileID: 110097114583272931}
   - component: {fileID: 116976396011059070}
   - component: {fileID: 497281666645382293}
   - component: {fileID: 5339143803349532809}
   m_Layer: 0
-  m_Name: Gold Deduct
+  m_Name: Life Deduct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1397855487918248811
+--- !u!114 &110097114583272931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2244266142222720595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf3bddcf306a6444addf890548e126a, type: 3}
+  m_Script: {fileID: 11500000, guid: a39237dbf8cfa1e47b18d4d6f2f55b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GoldType>k__BackingField: 0
+  <LifeType>k__BackingField: 0
   <IncreaseValue>k__BackingField: 0
   <VFXName>k__BackingField: 
   IsEnabled: 1
@@ -84,7 +84,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce96d8f5e10962546a0c0f48af649887, type: 2}
+  - {fileID: 2100000, guid: 8db9668f200ac2d44bccc2241cbefda9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
