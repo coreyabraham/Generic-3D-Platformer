@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manage Visual Effects / Particle Systems
+/// </summary>
 public class VFXManager : MonoBehaviour
 {
     public static VFXManager Instance { get; internal set; }
+    public Dictionary<string, VFX> VFXs;
 
-    [field: SerializeField] public Dictionary<string, VFX> VFXs;
     [field: SerializeField] public string[] VFXPaths { get; set; }
 
+    /// <summary>
+    /// Initalize "VFXPaths" Resource Directories and add VFX Keys
+    /// </summary>
     private void Start()
     {
         Instance ??= this;
@@ -27,6 +33,11 @@ public class VFXManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Test
+    /// </summary>
+    /// <param name="vfxName"></param>
+    /// <returns></returns>
     private (bool, VFX) CheckVFX(string vfxName)
     {
         VFX vfx;

@@ -1,0 +1,8 @@
+Visual Studio Code Path:
+> "$(ProjectPath)" -g "$(File)":$(Line):$(Column)
+
+XML Documentation Tags
+<summary> - Provides general descriptions
+<value> - Describes what a value is
+<returns> - Describes the return value of a method
+<param name="name"> - Describes a method's parameters
