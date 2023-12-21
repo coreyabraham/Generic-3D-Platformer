@@ -3,8 +3,14 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handle Player HUD / Interface.
+/// </summary>
 public class PlayerUI : MonoBehaviour
 {
+    /// <summary>
+    /// The type of Label to change.
+    /// </summary>
     private enum LabelType
     {
         Life = 0,
@@ -34,6 +40,10 @@ public class PlayerUI : MonoBehaviour
     public void LivesChanged(int value) => UpdateText(LabelType.Life, value);
     public void GoldChanged(int value) => UpdateText(LabelType.Gold, value);
 
+    /// <summary>
+    /// On Level Completion, pause game logic, run timer and move to next scene.
+    /// </summary>
+    /// <param name="SceneOverride"></param>
     private async void LevelCompleteUI(string SceneOverride)
     {
         if (_levelCompleted)
@@ -66,6 +76,11 @@ public class PlayerUI : MonoBehaviour
         SaveFileManager.Instance.SaveToFile();
     }
 
+    /// <summary>
+    /// Update Labels depending on the LabelType enum.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="value"></param>
     private void UpdateText(LabelType type, int value)
     {
         switch (type)
@@ -75,6 +90,9 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Turn off UI if enabled on start + enable Mobile UI if running on Mobile.
+    /// </summary>
     private void Start()
     {
         if (Main.activeSelf)

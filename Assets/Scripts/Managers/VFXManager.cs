@@ -34,7 +34,7 @@ public class VFXManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Test
+    /// Check if VFX Exists, returns true and the VFX instance if found.
     /// </summary>
     /// <param name="vfxName"></param>
     /// <returns></returns>
@@ -46,6 +46,11 @@ public class VFXManager : MonoBehaviour
         return (exists, vfx);
     }
 
+    /// <summary>
+    /// Run the VFX associated with the name given.
+    /// </summary>
+    /// <param name="vfxName"></param>
+    /// <param name="attachment"></param>
     internal void PlayAttached(string vfxName, GameObject attachment)
     {
         (bool, VFX) data = CheckVFX(vfxName);
@@ -56,8 +61,18 @@ public class VFXManager : MonoBehaviour
             return;
     }
 
+    /// <summary>
+    /// Run the VFX at a specific position (Transform).
+    /// </summary>
+    /// <param name="vfxName"></param>
+    /// <param name="position"></param>
     internal void Play(string vfxName, Transform position) => Play(vfxName, position.position);
 
+    /// <summary>
+    /// Run the VFX at a specific position (Vector3).
+    /// </summary>
+    /// <param name="vfxName"></param>
+    /// <param name="position"></param>
     internal void Play(string vfxName, Vector3 position)
     {
         (bool, VFX) data = CheckVFX(vfxName);

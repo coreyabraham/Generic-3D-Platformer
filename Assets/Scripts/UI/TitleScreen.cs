@@ -3,14 +3,21 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Base Title Screen Logic.
+/// [ Uses: PromptUI.cs ]
+/// </summary>
 public class TitleScreen : MonoBehaviour
 {
+    /// <summary>
+    /// Event Arguments used for Prompting.
+    /// </summary>
     [Serializable]
     public class EventArgs
     {
         [field: SerializeField] public string Title { get; set; }
         [field: SerializeField] public string Body { get; set; }
-        [field: SerializeField] public Action<bool> Action { get; set; }
+        public Action<bool> Action { get; set; }
     }
 
     [field: Header("Buttons")]
@@ -27,6 +34,9 @@ public class TitleScreen : MonoBehaviour
 
     private bool ButtonsEnabled = false;
 
+    /// <summary>
+    /// Show the Save Files menu when clicked.
+    /// </summary>
     private void PlayClicked()
     {
         if (!ButtonsEnabled || PlayMenu.activeSelf)
@@ -35,6 +45,9 @@ public class TitleScreen : MonoBehaviour
         PlayMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Show the Settings menu when clicked.
+    /// </summary>
     private void SettingsClicked()
     {
         if (!ButtonsEnabled || SettingsMenu.activeSelf)
@@ -43,6 +56,9 @@ public class TitleScreen : MonoBehaviour
         SettingsMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Prompt the PromptUI Instance when clicked. Quit the game when returned true.
+    /// </summary>
     private void ExitClicked()
     {
         if (!ButtonsEnabled)
@@ -67,6 +83,9 @@ public class TitleScreen : MonoBehaviour
         PromptUI.Instance.StartPrompt(ExitArgs.Title, ExitArgs.Body, ExitArgs.Action);
     }
 
+    /// <summary>
+    /// Hook "onClick" events to methods and fix Cursor State if broken.
+    /// </summary>
     private void Start()
     {
         PlayBtn.onClick.AddListener(PlayClicked);

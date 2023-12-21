@@ -1,13 +1,20 @@
 using UnityEngine;
 
+/// <summary>
+/// Handle Level Finishing Logic.
+/// [ Uses: GameManager.cs ]
+/// </summary>
 public class LevelFinisher : MonoBehaviour
 {
-    // Move this entire script into a "GenericCollider" class inheritence
-
+    // Define all Variables
     [field: SerializeField] public string SoundName { get; set; } = "Level Complete!";
     [field: SerializeField] public string SceneOverride { get; set; }
     private bool Triggered;
 
+    /// <summary>
+    /// When Touched, Disable Controls, Play a sound and call LevelFinished Event from GameManager.
+    /// </summary>
+    /// <param name="other"></param>
     public void OnTriggerEnter(Collider other)
     {
         if (Triggered || other.GetComponent<PlayerController>() == null)

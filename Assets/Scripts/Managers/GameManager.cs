@@ -4,10 +4,18 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Handle Generic Game Management.
+/// [ Uses: PlayerController.cs ]
+/// </summary>
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// Game Manager : Instance / Singleton
+    /// </summary>
     public static GameManager Instance { get; set; }
 
+    // Public Variables + Inspector Elements
     [field: Header("General")]
     [field: SerializeField] public Cinemachine.CinemachineFreeLook Camera { get; set; }
     [field: SerializeField] public PlayerController Player { get; set; }
@@ -20,7 +28,11 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public UnityEvent<bool> TogglePlayerUI { get; set; }
     [field: SerializeField] public UnityEvent<string> LevelFinished { get; set; }
 
-    // port this into "Assistant.cs" script full of other one-off functions like this!
+    /// <summary>
+    /// Wait for a Task, then invoke the provided Action when complete.
+    /// </summary>
+    /// <param name="timeoutTask"></param>
+    /// <param name="onComplete"></param>
     public static async void WaitForTask(Task timeoutTask, Action onComplete)
     {
         if (await Task.WhenAny(timeoutTask, Task.Delay(1000)) == timeoutTask)
@@ -32,8 +44,16 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("Instance of managers not found!");
     }
 
+    /// <summary>
+    /// Run a Timer in Milliseconds.
+    /// </summary>
+    /// <param name="timeMS"></param>
+    /// <returns></returns>
     public static async Task Timer(int timeMS) => await Task.Delay(timeMS);
 
+    /// <summary>
+    /// Creates Instance and Event Variables and assigns GameManager.PlatformType.
+    /// </summary>
     private void Awake()
     {
         Instance ??= this;

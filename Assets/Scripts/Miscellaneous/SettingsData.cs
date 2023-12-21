@@ -3,6 +3,10 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// All Saveable Settings Data
+/// [ Used By: SettingsData.cs, SettingsUI.cs ]
+/// </summary>
 [Serializable]
 public class BaseSettings
 {
@@ -20,24 +24,36 @@ public class BaseSettings
     public bool Fullscreen;
 }
 
+/// <summary>
+/// Handle all Savable SettingsData Instancing
+/// [ Uses: DataManager.cs ]
+/// </summary>
 public class SettingsData : MonoBehaviour
 {
+    /// <summary>
+    /// Include BaseSettings Instance Reference
+    /// </summary>
     public BaseSettings BaseSettings;
 
+    // All Fields (Both Private and Public)
     [field: Header("Miscellaneous")]
-    [field: SerializeField] public string FileName { get; set; } = "SettingsData.json";
-    [field: SerializeField] public string FilePath { get; set; }
+    [field: SerializeField] private string FileName { get; set; } = "SettingsData.json";
+    [field: SerializeField] private string FilePath { get; set; }
 
     [field: Header("Events")]
     [field: SerializeField] public UnityEvent InitalizeEvent { get; set; }
     [field: SerializeField] public UnityEvent<BaseSettings> SettingsChanged { get; set; }
 
     [field: Header("Debugging")]
-    [field: SerializeField] public bool DeleteFileOnStart { get; set; }
+    [field: SerializeField] private bool DeleteFileOnStart { get; set; }
 
     [HideInInspector] public Resolution[] Resolutions;
     [HideInInspector] public BaseSettings DefaultSettings { get; internal set; }
 
+    /// <summary>
+    /// Apply Settings using BaseSettings data.
+    /// </summary>
+    /// <param name="Settings"></param>
     public void ApplySettings(BaseSettings Settings)
     {
         // if (Settings == BaseSettings)
@@ -53,8 +69,14 @@ public class SettingsData : MonoBehaviour
         SettingsChanged?.Invoke(BaseSettings);
     }
 
+    /// <summary>
+    /// Set BaseSettings to DefaultSettings to revert all changes.
+    /// </summary>
     public void SetDefaults() => BaseSettings = DefaultSettings;
 
+    /// <summary>
+    /// Create a file if it doesn't exist, if it exists read from it.
+    /// </summary>
     private void ManageData()
     {
         DataManager dataInst = new();
@@ -77,6 +99,9 @@ public class SettingsData : MonoBehaviour
         BaseSettings = dataInst.Get(jsonFileContents);
     }
 
+    /// <summary>
+    /// Initalize FilePath, DefaultSettings and Resolutions.
+    /// </summary>
     private void Start()
     {
         if (FilePath == string.Empty)

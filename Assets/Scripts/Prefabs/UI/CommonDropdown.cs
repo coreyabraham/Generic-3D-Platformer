@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// A Standardized Dropdown Instance used in the Settings Menu.
+/// </summary>
 public class CommonDropdown : MonoBehaviour
 {
     [field: Header("Settings")]
@@ -14,6 +17,9 @@ public class CommonDropdown : MonoBehaviour
     
     private int previousValue;
 
+    /// <summary>
+    /// Apply all settings on startup as necessary.
+    /// </summary>
     private void Start()
     {
         if (Dropdown == null)

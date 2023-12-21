@@ -3,14 +3,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// UI Handler for File Management
+/// [ Uses: SaveFileManager.cs, PromptUI.cs ]
+/// </summary>
 public class FileSelectUI : MonoBehaviour
 {
+    /// <summary>
+    /// Event Arguments used for Prompting.
+    /// </summary>
     [Serializable]
     public class EventArgs
     {
         [field: SerializeField] public string Title { get; set; }
         [field: SerializeField] public string Body { get; set; }
-        [field: SerializeField] public Action<bool> Action { get; set; }
+        public Action<bool> Action { get; set; }
     }
 
     [field: Header("Save Files")]
@@ -27,6 +34,10 @@ public class FileSelectUI : MonoBehaviour
     private int SelectedFile;
     private EventArgs ResetArgs;
 
+    /// <summary>
+    /// Temp Clicked, Set Selected Save File to default then load scene.
+    /// </summary>
+    /// <param name="SceneName"></param>
     public void TempClicked(string SceneName)
     {
         if (SaveFileManager.Instance.SelectedSaveFile == null)
@@ -35,6 +46,10 @@ public class FileSelectUI : MonoBehaviour
         SceneController.Instance.LoadScene(SceneName);
     }
 
+    /// <summary>
+    /// Check SaveFile on disk validity.
+    /// </summary>
+    /// <returns>(bool) status</returns>
     private bool ValidateSelection()
     {
         string message = "Selected: " + SaveFileManager.Instance.SaveFiles[SelectedFile - 1].FriendlyName + "!";
@@ -53,6 +68,9 @@ public class FileSelectUI : MonoBehaviour
         return status;
     }
 
+    /// <summary>
+    /// Load the Selected Save File.
+    /// </summary>
     private void LoadSelected()
     {
         bool result = ValidateSelection();
@@ -75,6 +93,9 @@ public class FileSelectUI : MonoBehaviour
         SceneController.Instance.LoadScene(data.LevelName, index);
     }
 
+    /// <summary>
+    /// Delete the Selected Save File.
+    /// </summary>
     private void DeleteSelected()
     {
         bool result = ValidateSelection();
@@ -105,6 +126,9 @@ public class FileSelectUI : MonoBehaviour
         PromptUI.Instance.StartPrompt(ResetArgs.Title, ResetArgs.Body, ResetArgs.Action);
     }
 
+    /// <summary>
+    /// Hide this UI when exit clicked.
+    /// </summary>
     private void ExitSelected()
     {
         if (!gameObject.activeSelf)
@@ -113,12 +137,31 @@ public class FileSelectUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Set SelectedFile integer to 1 and validate data.
+    /// </summary>
     private void Save1Selected() { SelectedFile = 1; ValidateSelection(); }
+
+    /// <summary>
+    /// Set SelectedFile integer to 2 and validate data.
+    /// </summary>
     private void Save2Selected() { SelectedFile = 2; ValidateSelection(); }
+
+    /// <summary>
+    /// Set SelectedFile integer to 3 and validate data.
+    /// </summary>
     private void Save3Selected() { SelectedFile = 3; ValidateSelection(); }
 
+    /// <summary>
+    /// Format the Output Text Label depending on file status.
+    /// </summary>
+    /// <param name="TextLabel"></param>
+    /// <param name="SaveData"></param>
     private void FormatText(TMP_Text TextLabel, SaveFileData SaveData) => TextLabel.text = SaveData.FriendlyName + " // " + SaveData.LevelName;
 
+    /// <summary>
+    /// Create reset args prompt title and body, adjust all save text labels and hook listener events to methods.
+    /// </summary>
     private void Start()
     {
         ResetArgs = new()

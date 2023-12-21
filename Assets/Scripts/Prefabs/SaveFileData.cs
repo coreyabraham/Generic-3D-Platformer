@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Base Class defining all applicable Save File Data.
+/// </summary>
 [Serializable]
 public class SaveFileData
 {
